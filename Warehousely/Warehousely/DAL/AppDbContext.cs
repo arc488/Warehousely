@@ -20,6 +20,16 @@ namespace Warehousely.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Product>()
+                .HasData(new Product
+                {
+                    Count = 5,
+                    Id = 1,
+                    ImageString = "NoString",
+                    Name = "FirstWine",
+                    Price = 10.88M,
+                    Size = "1L"
+                });
 
         }
     }
