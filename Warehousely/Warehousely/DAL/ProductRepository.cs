@@ -13,11 +13,13 @@ namespace Warehousely.DAL
         public ProductRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
+            
         }
 
         public void CreateProduct(Product product)
         {
             _appDbContext.Products.Add(product);
+            _appDbContext.SaveChanges();
         }
 
         public IEnumerable<Product> AllProducts => _appDbContext.Products;
