@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Warehousely.DAL;
+using Warehousely.Models;
 
 namespace Warehousely.Controllers
 {
@@ -19,12 +20,21 @@ namespace Warehousely.Controllers
         public IActionResult List()
         {
             var products = _productRepository.AllProducts;
-            Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            foreach (var product in products)
-            {
-                Debug.WriteLine(product.Name);
-            }
+
             return View(products);
+        }
+
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(Product product)
+        {
+            _productRepository.CreateProduct(product);
+            ViewBag.Message = "Product Added Successfully";
+            return View();
         }
     }
 }

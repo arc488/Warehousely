@@ -1,0 +1,35 @@
+﻿@model Product
+
+<div class="p-3 mb-2 bg-success text-white">@ViewBag.Message</div>
+
+
+<form asp-controller="Product" asp-action="AddProduct" method="post">
+    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+        <input asp-for="Name" />
+    </div>
+
+    <label asp-for="Count" class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+        <input asp-for="Count" />
+    </div>
+
+    <label asp-for="Price" class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+        <input asp-for="Price" />
+    </div>
+
+    <label asp-for="Size" class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+        <input asp-for="Size" />
+    </div>
+
+    <label asp-for="ImageString" class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+        <input asp-for="ImageString" />
+    </div>
+
+    <div class="col-sm-10">
+        <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+    </div>
+</form>
