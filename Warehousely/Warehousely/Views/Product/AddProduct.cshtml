@@ -1,32 +1,50 @@
 ﻿@model Product
 
-<div class="p-3 mb-2 bg-success text-white">@ViewBag.Message</div>
-
+@if (!String.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="p-3 mb-2 bg-success text-white">@ViewBag.Message</div>
+}
+<div asp-validation-summary="All" class="text-danger"><</div>
 
 <form asp-controller="Product" asp-action="AddProduct" method="post">
-    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
-    <div class="col-sm-10">
-        <input asp-for="Name" />
+    <div class="form-group">
+        <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-4"><span asp-validation-for="Name" class="text-danger"></span></div>
+        <div class="col-sm-10">
+            <input asp-for="Name" />
+        </div>
     </div>
 
-    <label asp-for="Count" class="col-sm-2 col-form-label"></label>
-    <div class="col-sm-10">
-        <input asp-for="Count" />
+    <div class="form-group">
+        <label asp-for="Count" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-4"><span asp-validation-for="Count" class="text-danger"></span></div>
+        <div class="col-sm-10">
+            <input asp-for="Count" />
+        </div>
     </div>
 
-    <label asp-for="Price" class="col-sm-2 col-form-label"></label>
-    <div class="col-sm-10">
-        <input asp-for="Price" />
+    <div class="form-group">
+        <label asp-for="Price" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-4"><span asp-validation-for="Price" class="text-danger"></span></div>
+        <div class="col-sm-10">
+            <input asp-for="Price" />
+        </div>
     </div>
 
-    <label asp-for="Size" class="col-sm-2 col-form-label"></label>
-    <div class="col-sm-10">
-        <input asp-for="Size" />
+    <div class="form-group">
+        <label asp-for="Size" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-4"><span asp-validation-for="Size" class="text-danger"></span></div>
+        <div class="col-sm-10">
+            <input asp-for="Size" />
+        </div>
     </div>
 
-    <label asp-for="ImageString" class="col-sm-2 col-form-label"></label>
-    <div class="col-sm-10">
-        <input asp-for="ImageString" />
+    <div class="form-group">
+        <label asp-for="ImageString" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-4"><span asp-validation-for="ImageString" class="text-danger"></span></div>
+        <div class="col-sm-10">
+            <input asp-for="ImageString" />
+        </div>
     </div>
 
     <div class="col-sm-10">

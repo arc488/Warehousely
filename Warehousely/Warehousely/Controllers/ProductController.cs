@@ -32,6 +32,10 @@ namespace Warehousely.Controllers
         [HttpPost]
         public IActionResult AddProduct(Product product)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             _productRepository.CreateProduct(product);
             ViewBag.Message = "Product Added Successfully";
             return View();
