@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Warehousely.DAL;
 using Warehousely.Models;
+using Warehousely.ViewModels;
 
 namespace Warehousely.Controllers
 {
@@ -22,6 +23,23 @@ namespace Warehousely.Controllers
             var products = _productRepository.AllProducts;
 
             return View(products);
+        }
+
+        public IActionResult Detail(int id)
+        {
+            var product = _productRepository.GetById(id);
+            if (product == null) return NotFound();
+            var productDetailViewModel = new ProductDetailViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Count = product.Count,
+                Price = product.Price,
+                Size = product.Size,
+                ImageString = product.ImageString
+            };
+
+            return View(productDetailViewModel);
         }
 
         public IActionResult AddProduct()
