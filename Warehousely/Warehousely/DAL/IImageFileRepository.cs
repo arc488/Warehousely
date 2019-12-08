@@ -11,5 +11,6 @@ namespace Warehousely.DAL
     {
         int CreateImage(IFormFile file);
         ImageFile GetById(int id);
+        void DeleteImageFile(ImageFile imageFile);
     }
 }

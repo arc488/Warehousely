@@ -20,7 +20,6 @@ namespace Warehousely.DAL
 
         public void CreateProduct(Product product)
         {
-            Debug.WriteLine("Create product product id is: " + product.Image.Id);
             _appDbContext.Products.Add(product);
             _appDbContext.SaveChanges();
         }
@@ -28,6 +27,13 @@ namespace Warehousely.DAL
         public Product GetById(int id)
         {
             return _appDbContext.Products.Include(i => i.Image).FirstOrDefault<Product>(p => p.Id == id);
+        }
+
+        public void DeleteProduct(Product product)
+        {
+            _appDbContext.Products.Remove(product);
+            _appDbContext.SaveChanges();
+
         }
 
         public IEnumerable<Product> AllProducts => _appDbContext.Products;
