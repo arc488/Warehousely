@@ -22,6 +22,11 @@ namespace Warehousely.DAL
             _appDbContext.SaveChanges();
         }
 
+        public Product GetById(int id)
+        {
+            return _appDbContext.Products.FirstOrDefault<Product>(p => p.Id == id);
+        }
+
         public IEnumerable<Product> AllProducts => _appDbContext.Products;
 
     }
