@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Warehousely.DAL;
 
 namespace Warehousely.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191208024025_AddedImageFileDb")]
+    partial class AddedImageFileDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,8 +62,8 @@ namespace Warehousely.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ImageString")
                         .HasColumnType("nvarchar(max)");
@@ -82,8 +84,6 @@ namespace Warehousely.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ImageId");
-
                     b.ToTable("Products");
 
                     b.HasData(
@@ -96,13 +96,6 @@ namespace Warehousely.Migrations
                             Price = 10.88m,
                             Size = "1L"
                         });
-                });
-
-            modelBuilder.Entity("Warehousely.Models.Product", b =>
-                {
-                    b.HasOne("Warehousely.Models.ImageFile", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
                 });
 #pragma warning restore 612, 618
         }
