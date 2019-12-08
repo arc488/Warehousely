@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Warehousely.DAL;
 using Warehousely.Models;
@@ -13,10 +15,12 @@ namespace Warehousely.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly IImageFileRepository _imageFileRepository;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository, IImageFileRepository imageFileRepository)
         {
             _productRepository = productRepository;
+            _imageFileRepository = imageFileRepository;
         }
         public IActionResult List()
         {
@@ -39,6 +43,8 @@ namespace Warehousely.Controllers
                 ImageString = product.ImageString
             };
 
+            productDetailViewModel.Image = (product.Image == null) ? string.Empty : Convert.ToBase64String(product.Image.Content);
+
             return View(productDetailViewModel);
         }
 
@@ -48,12 +54,17 @@ namespace Warehousely.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(Product product)
+        public IActionResult AddProduct(Product product, IFormFile file)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
+
+            var imageFileId = _imageFileRepository.CreateImage(file);
+
+            product.Image = _imageFileRepository.GetById(imageFileId);
+
             _productRepository.CreateProduct(product);
             ViewBag.Message = "Product Added Successfully";
             return View();

@@ -3,51 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Warehousely.DAL;
 
 namespace Warehousely.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191208014910_ByteImage")]
+    partial class ByteImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Warehousely.Models.ImageFile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<byte[]>("Content")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("ContentDisposition")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("Length")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ImageFiles");
-                });
 
             modelBuilder.Entity("Warehousely.Models.Product", b =>
                 {
@@ -60,8 +32,8 @@ namespace Warehousely.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ImageString")
                         .HasColumnType("nvarchar(max)");
@@ -82,8 +54,6 @@ namespace Warehousely.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ImageId");
-
                     b.ToTable("Products");
 
                     b.HasData(
@@ -96,13 +66,6 @@ namespace Warehousely.Migrations
                             Price = 10.88m,
                             Size = "1L"
                         });
-                });
-
-            modelBuilder.Entity("Warehousely.Models.Product", b =>
-                {
-                    b.HasOne("Warehousely.Models.ImageFile", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
                 });
 #pragma warning restore 612, 618
         }

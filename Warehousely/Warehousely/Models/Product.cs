@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -32,7 +33,10 @@ namespace Warehousely.Models
         [Display(Name = "Price")]
         public decimal? Price { get; set; }
         
-        [Display(Name = "Image")]
+        [Display(Name = "Image String")]
         public string ImageString { get; set; }
+
+        [Display(Name = "Image")]
+        public ImageFile Image { get; set; }
     }
 }

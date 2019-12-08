@@ -15,6 +15,7 @@ namespace Warehousely.DAL
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<ImageFile> ImageFiles { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
