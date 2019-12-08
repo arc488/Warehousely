@@ -41,6 +41,13 @@ namespace Warehousely.DAL
             return ImageFile.Id;
         }
 
+        public void DeleteImageFile(ImageFile imageFile)
+        {
+            _appDbContext.ImageFiles.Remove(imageFile);
+            _appDbContext.SaveChanges();
+
+        }
+
         public ImageFile GetById(int id)
         {
             return _appDbContext.ImageFiles.FirstOrDefault<ImageFile>(i => i.Id == id);

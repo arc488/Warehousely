@@ -53,6 +53,15 @@ namespace Warehousely.Controllers
             return View();
         }
 
+        public IActionResult DeleteProduct(int id)
+        {
+            var product = _productRepository.GetById(id);
+            if (product.Image != null) _imageFileRepository.DeleteImageFile(product.Image);
+            if (product != null) _productRepository.DeleteProduct(product);
+            ViewBag.Message = "Product deleted successfully";
+            return RedirectToAction("List");
+        }
+
         [HttpPost]
         public IActionResult AddProduct(Product product, IFormFile file)
         {
