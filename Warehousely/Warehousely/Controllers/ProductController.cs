@@ -40,17 +40,11 @@ namespace Warehousely.Controllers
                 Count = product.Count,
                 Price = product.Price,
                 Size = product.Size,
-                ImageString = product.ImageString
+                ImageString = product.ImageString,
+                Image = product.Image.Content
             };
 
-            productDetailViewModel.Image = (product.Image == null) ? string.Empty : Convert.ToBase64String(product.Image.Content);
-
             return View(productDetailViewModel);
-        }
-
-        public IActionResult AddProduct()
-        {
-            return View();
         }
 
         public IActionResult DeleteProduct(int id)
@@ -60,6 +54,25 @@ namespace Warehousely.Controllers
             if (product != null) _productRepository.DeleteProduct(product);
             ViewBag.Message = "Product deleted successfully";
             return RedirectToAction("List");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var product = _productRepository.GetById(id);
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            if (!ModelState.IsValid) return View(_productRepository.GetById(product.Id));
+            _productRepository.UpdateProduct(product);
+            return RedirectToAction("Edit", product.Id);
+        }
+
+        public IActionResult AddProduct()
+        {
+            return View();
         }
 
         [HttpPost]

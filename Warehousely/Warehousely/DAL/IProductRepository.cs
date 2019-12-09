@@ -12,5 +12,6 @@ namespace Warehousely.DAL
         Product GetById(int id);
         IEnumerable<Product> AllProducts { get; }
         void DeleteProduct(Product product);
+        void UpdateProduct(Product product);
     }
 }

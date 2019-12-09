@@ -36,6 +36,12 @@ namespace Warehousely.DAL
 
         }
 
+        public void UpdateProduct(Product product)
+        {
+            _appDbContext.Entry(product).State = EntityState.Modified;
+            _appDbContext.SaveChanges();
+        }
+
         public IEnumerable<Product> AllProducts => _appDbContext.Products;
 
     }
