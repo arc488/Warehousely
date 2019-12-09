@@ -13,6 +13,6 @@ namespace Warehousely.ViewModels
         public string Size { get; set; }
         public decimal? Price { get; set; }
         public string ImageString { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
     }
 }

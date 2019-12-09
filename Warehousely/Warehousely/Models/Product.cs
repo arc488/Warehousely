@@ -11,7 +11,6 @@ namespace Warehousely.Models
     public class Product
     {
         [Key]
-        [BindNever]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter product name")]

@@ -1,26 +1,61 @@
 ﻿@model ProductDetailViewModel
 
-<table class="table table-striped">
-    <tbody>
-        <tr>
-            <th scope="row">Id</th>
-            <td>@Model.Id</td>
-        </tr>
-        <tr>
-            <th scope="row">Name</th>
-            <td>@Model.Name</td>
-        </tr>
-        <tr>
-            <th scope="row">Count</th>
-            <td>@Model.Count</td>
-        </tr>
-        <tr>
-            <th scope="row">Size</th>
-            <td>@Model.Size</td>
-        </tr>
-        <tr>
-            <th scope="row">Price</th>
-            <td>@Model.Price</td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+    <form>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        <label asp-for="Id" class="control-label"></label>
+                    </th>
+                    <td>
+                        <input readonly asp-for="Id" class="form-control" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label asp-for="Name" class="control-label"></label>
+                    </th>
+                    <td>
+                        <input readonly asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label asp-for="Count" class="control-label"></label>
+                    </th>
+                    <td>
+                        <input readonly asp-for="Count" class="form-control" />
+                        <span asp-validation-for="Count" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label asp-for="Size" class="control-label"></label>
+                    </th>
+                    <td>
+                        <input readonly asp-for="Size" class="form-control" />
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label asp-for="Price" class="control-label"></label>
+                    </th>
+                    <td>
+                        <input readonly asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <a asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        </div>
+
+    </form>
+</div>
