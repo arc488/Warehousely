@@ -63,9 +63,16 @@ namespace Warehousely.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(Product product, IFormFile file)
         {
             if (!ModelState.IsValid) return View(_productRepository.GetById(product.Id));
+
+            if (file != null)
+            {
+                var imageFileId = _imageFileRepository.CreateImage(file);
+                product.Image = _imageFileRepository.GetById(imageFileId);
+            }
+
             _productRepository.UpdateProduct(product);
             return RedirectToAction("Edit", product.Id);
         }
