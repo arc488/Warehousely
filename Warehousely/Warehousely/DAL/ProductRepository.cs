@@ -26,7 +26,10 @@ namespace Warehousely.DAL
 
         public Product GetById(int id)
         {
-            return _appDbContext.Products.Include(i => i.Image).FirstOrDefault<Product>(p => p.Id == id);
+            return _appDbContext.Products
+                .Include(i => i.Image)
+                .Include(s => s.Size)
+                .FirstOrDefault<Product>(p => p.Id == id);
         }
 
         public void DeleteProduct(Product product)
@@ -39,6 +42,15 @@ namespace Warehousely.DAL
         public void UpdateProduct(Product product)
         {
             _appDbContext.Entry(product).State = EntityState.Modified;
+            _appDbContext.SaveChanges();
+        }
+
+        public void RemoveAll()
+        {
+            foreach (var entry in _appDbContext.Products)
+            {
+                _appDbContext.Products.Remove(entry);
+            }
             _appDbContext.SaveChanges();
         }
 

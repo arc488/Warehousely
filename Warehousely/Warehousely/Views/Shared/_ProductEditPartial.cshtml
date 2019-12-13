@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model ProductEditViewModel
 
 <div class="row">
     <form asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
@@ -38,7 +38,21 @@
                         <label asp-for="Size" class="control-label"></label>
                     </th>
                     <td>
-                        <input asp-for="Size" class="form-control" />
+                        <select asp-for="Size" class="form-control">
+                            @foreach (var size in Model.AllSizes)
+                            {
+                                if (size.Id == Model.Size)
+                                {
+                                    <option value="@size.Id" selected>@size.Name</option>
+
+                                }
+                                else
+                                {
+                                    <option value="@size.Id">@size.Name</option>
+
+                                }
+                            }
+                        </select>
                         <span asp-validation-for="Size" class="text-danger"></span>
                     </td>
                 </tr>
