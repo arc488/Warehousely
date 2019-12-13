@@ -25,16 +25,12 @@ namespace Warehousely.Models
 
         [Required(ErrorMessage = "Please select product size")]
         [Display(Name = "Size")]
-        [StringLength(10, MinimumLength = 1)]
-        public string Size { get; set; }
+        public Size Size { get; set; }
 
         [Required(ErrorMessage = "Please enter product price")]
         [Display(Name = "Price")]
         public decimal? Price { get; set; }
-        
-        [Display(Name = "Image String")]
-        public string ImageString { get; set; }
-
+       
         [Display(Name = "Image")]
         public ImageFile Image { get; set; }
     }

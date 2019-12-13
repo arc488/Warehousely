@@ -10,28 +10,36 @@ namespace Warehousely.DAL
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) :base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ImageFile> ImageFiles { get; set; }
+        public DbSet<Size> Sizes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Product>()
-                .HasData(new Product
+            modelBuilder.Entity<Size>()
+                .HasData(new Size
                 {
-                    Count = 5,
                     Id = 1,
-                    ImageString = "NoString",
-                    Name = "FirstWine",
-                    Price = 10.88M,
-                    Size = "1L"
+                    Name = "375 ml Demi"
                 });
-
+            modelBuilder.Entity<Size>()
+                .HasData(new Size
+                {
+                    Id = 2,
+                    Name = "750 ml Standard"
+                });
+            modelBuilder.Entity<Size>()
+                .HasData(new Size
+                {
+                    Id = 3,
+                    Name = "1.5 L Magnum"
+                });
         }
     }
 }
