@@ -13,5 +13,6 @@ namespace Warehousely.DAL
         IEnumerable<Product> AllProducts { get; }
         void DeleteProduct(Product product);
         void UpdateProduct(Product product);
+        void RemoveAll();
     }
 }

@@ -63,9 +63,6 @@ namespace Warehousely.Migrations
                     b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageString")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -75,26 +72,47 @@ namespace Warehousely.Migrations
                         .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ImageId");
 
+                    b.HasIndex("SizeId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Warehousely.Models.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sizes");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Count = 5,
-                            ImageString = "NoString",
-                            Name = "FirstWine",
-                            Price = 10.88m,
-                            Size = "1L"
+                            Name = "375 ml Demi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "750 ml Standard"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "1.5 L Magnum"
                         });
                 });
 
@@ -103,6 +121,12 @@ namespace Warehousely.Migrations
                     b.HasOne("Warehousely.Models.ImageFile", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
+
+                    b.HasOne("Warehousely.Models.Size", "Size")
+                        .WithMany("Products")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

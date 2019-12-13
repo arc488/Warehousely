@@ -28,6 +28,7 @@ namespace Warehousely
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageFileRepository, ImageFileRepository>();
+            services.AddScoped<ISizeRepository, SizeRepository>();
             services.AddControllersWithViews();
         }
 

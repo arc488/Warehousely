@@ -37,7 +37,7 @@
                         <label asp-for="Size" class="control-label"></label>
                     </th>
                     <td>
-                        <input readonly asp-for="Size" class="form-control" />
+                        <input readonly asp-for="Size" value="@Model.Size" class="form-control" />
                         <span asp-validation-for="Size" class="text-danger"></span>
                     </td>
                 </tr>

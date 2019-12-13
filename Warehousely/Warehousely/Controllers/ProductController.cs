@@ -15,11 +15,16 @@ namespace Warehousely.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly ISizeRepository _sizeRepository;
         private readonly IImageFileRepository _imageFileRepository;
 
-        public ProductController(IProductRepository productRepository, IImageFileRepository imageFileRepository)
+        public ProductController(
+            IProductRepository productRepository,
+            ISizeRepository sizeRepository,
+            IImageFileRepository imageFileRepository)
         {
             _productRepository = productRepository;
+            _sizeRepository = sizeRepository;
             _imageFileRepository = imageFileRepository;
         }
         public IActionResult List()
@@ -39,8 +44,7 @@ namespace Warehousely.Controllers
                 Name = product.Name,
                 Count = product.Count,
                 Price = product.Price,
-                Size = product.Size,
-                ImageString = product.ImageString,
+                Size = product.Size.Name,
                 Image = product.Image.Content
             };
 
@@ -59,13 +63,33 @@ namespace Warehousely.Controllers
         public IActionResult Edit(int id)
         {
             var product = _productRepository.GetById(id);
-            return View(product);
+            var productEditViewModel = new ProductEditViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Count = product.Count,
+                Size = product.Size.Id,
+                Image = product.Image.Content,
+                AllSizes = _sizeRepository.AllSizes
+            };
+
+            return View(productEditViewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product, IFormFile file)
+        public IActionResult Edit(ProductEditViewModel model, IFormFile file)
         {
-            if (!ModelState.IsValid) return View(_productRepository.GetById(product.Id));
+            if (!ModelState.IsValid) return View(_productRepository.GetById(model.Id));
+
+            var product = new Product
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Price = model.Price,
+                Count = model.Count,
+                Size = _sizeRepository.GetById(model.Size)
+            };
 
             if (file != null)
             {
@@ -79,11 +103,13 @@ namespace Warehousely.Controllers
 
         public IActionResult AddProduct()
         {
-            return View();
+            var model = new ProductAddViewModel();
+            model.AllSizes = _sizeRepository.AllSizes;
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult AddProduct(Product product, IFormFile file)
+        public IActionResult AddProduct(ProductAddViewModel model, IFormFile file)
         {
             if (!ModelState.IsValid)
             {
@@ -92,11 +118,25 @@ namespace Warehousely.Controllers
 
             var imageFileId = _imageFileRepository.CreateImage(file);
 
-            product.Image = _imageFileRepository.GetById(imageFileId);
+            var product = new Product
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Price = model.Price,
+                Count = model.Count,
+                Size = _sizeRepository.GetById(model.Size),
+                Image = _imageFileRepository.GetById(imageFileId)
+        };
 
             _productRepository.CreateProduct(product);
             ViewBag.Message = "Product Added Successfully";
-            return View();
+            return RedirectToAction("AddProduct");
+        }
+
+        public IActionResult RemoveAll()
+        {
+            _productRepository.RemoveAll();
+            return RedirectToAction("List");
         }
     }
 }

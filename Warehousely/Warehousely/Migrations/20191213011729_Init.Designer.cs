@@ -10,8 +10,8 @@ using Warehousely.DAL;
 namespace Warehousely.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191208024025_AddedImageFileDb")]
-    partial class AddedImageFileDb
+    [Migration("20191213011729_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,11 +62,8 @@ namespace Warehousely.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("ImageString")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -77,25 +74,61 @@ namespace Warehousely.Migrations
                         .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("SizeId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Warehousely.Models.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sizes");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Count = 5,
-                            ImageString = "NoString",
-                            Name = "FirstWine",
-                            Price = 10.88m,
-                            Size = "1L"
+                            Name = "375 ml Demi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "750 ml Standard"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "1.5 L Magnum"
                         });
+                });
+
+            modelBuilder.Entity("Warehousely.Models.Product", b =>
+                {
+                    b.HasOne("Warehousely.Models.ImageFile", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.HasOne("Warehousely.Models.Size", "Size")
+                        .WithMany("Products")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
