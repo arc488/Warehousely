@@ -32,7 +32,10 @@ namespace Warehousely
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageFileRepository, ImageFileRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

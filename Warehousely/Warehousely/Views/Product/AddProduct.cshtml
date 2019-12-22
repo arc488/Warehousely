@@ -4,10 +4,10 @@
 {
     <div class="p-3 mb-2 bg-success text-white">@ViewBag.Message</div>
 }
-<div asp-validation-summary="All" class="text-danger"><</div>
+<div asp-validation-summary="All" class="text-danger"></div>
 
 <form asp-controller="Product" asp-action="AddProduct" method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken();
+    @Html.AntiForgeryToken()
     <div class="form-group">
         <label asp-for="Name" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-4"><span asp-validation-for="Name" class="text-danger"></span></div>
