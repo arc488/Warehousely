@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Warehousely.DAL;
@@ -12,6 +13,7 @@ using Warehousely.ViewModels;
 
 namespace Warehousely.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
