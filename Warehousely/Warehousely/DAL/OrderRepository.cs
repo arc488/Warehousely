@@ -20,14 +20,13 @@ namespace Warehousely.DAL
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Order> GetAllOrders()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Order> AllOrders => _appDbContext.Orders;
+
 
         public Order GetById(int id)
         {
-            throw new NotImplementedException();
+            var order = _appDbContext.Orders.FirstOrDefault<Order>(o => o.Id == id);
+            return order;
         }
     }
 }

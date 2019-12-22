@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Customer>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <th scope="row">@customer.Id</th>
+                    <td>@customer.Name</td>
+                    <td><a asp-controller="Product" asp-action="Detail" asp-route-id="@customer.Id" class="btn btn-primary">Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>

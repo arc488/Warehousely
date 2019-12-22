@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +20,18 @@ namespace Warehousely.Controllers
         private readonly IProductRepository _productRepository;
         private readonly ISizeRepository _sizeRepository;
         private readonly IImageFileRepository _imageFileRepository;
+        private readonly IMapper _mapper;
 
         public ProductController(
             IProductRepository productRepository,
             ISizeRepository sizeRepository,
-            IImageFileRepository imageFileRepository)
+            IImageFileRepository imageFileRepository,
+            IMapper mapper)
         {
             _productRepository = productRepository;
             _sizeRepository = sizeRepository;
             _imageFileRepository = imageFileRepository;
+            _mapper = mapper;
         }
         public IActionResult List()
         {

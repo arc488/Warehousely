@@ -8,7 +8,7 @@ namespace Warehousely.DAL
 {
     public interface ICustomerRepository
     {
-        IEnumerable<Customer> GetAllCustomers();
+        IEnumerable<Customer> AllCustomers { get;  }
         Customer GetById(int id);
         void CreateCustomer(Customer customer);
     }

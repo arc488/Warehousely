@@ -8,7 +8,7 @@ namespace Warehousely.DAL
 {
     public interface IOrderRepository
     {
-        IEnumerable<Order> GetAllOrders();
+        IEnumerable<Order> AllOrders { get; } 
         Order GetById(int id);
         void CreateOrder(Order Order);
     }

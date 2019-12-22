@@ -14,19 +14,19 @@ namespace Warehousely.DAL
         {
             _appDbContext = appDbContext;
         }
+
+        public IEnumerable<Customer> AllCustomers => _appDbContext.Customers;
+
         public void CreateCustomer(Customer customer)
         {
-            
-        }
-
-        public IEnumerable<Customer> GetAllCustomers()
-        {
-            throw new NotImplementedException();
+            _appDbContext.Customers.Add(customer);
+            _appDbContext.SaveChanges();
         }
 
         public Customer GetById(int id)
         {
-            throw new NotImplementedException();
+            var customer = _appDbContext.Customers.FirstOrDefault<Customer>(c => c.Id == id);
+            return customer;
         }
     }
 }
