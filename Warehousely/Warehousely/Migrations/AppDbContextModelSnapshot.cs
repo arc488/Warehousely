@@ -222,7 +222,9 @@ namespace Warehousely.Migrations
             modelBuilder.Entity("Warehousely.Models.Address", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address1")
                         .HasColumnType("nvarchar(max)");
@@ -257,6 +259,9 @@ namespace Warehousely.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -267,6 +272,8 @@ namespace Warehousely.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Customers");
                 });
@@ -455,13 +462,11 @@ namespace Warehousely.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Warehousely.Models.Address", b =>
+            modelBuilder.Entity("Warehousely.Models.Customer", b =>
                 {
-                    b.HasOne("Warehousely.Models.Customer", "Customer")
-                        .WithOne("Address")
-                        .HasForeignKey("Warehousely.Models.Address", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Warehousely.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
                 });
 
             modelBuilder.Entity("Warehousely.Models.Order", b =>

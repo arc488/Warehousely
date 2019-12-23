@@ -28,10 +28,10 @@ namespace Warehousely.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Customer>()
-                .HasOne(a => a.Address)
-                .WithOne(a => a.Customer)
-                .HasForeignKey<Address>(c => c.Id);
+            //modelBuilder.Entity<Customer>()
+            //    .HasOne(a => a.Address)
+            //    .WithOne(a => a.Customer)
+            //    .HasForeignKey<Address>(c => c.Id);
 
             modelBuilder.Entity<Size>()
                 .HasData(new Size

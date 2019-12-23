@@ -15,6 +15,5 @@ namespace Warehousely.Models
         public int Zip { get; set; }
         public double Lat { get; set; }
         public double Long { get; set; }
-        public Customer Customer { get; set; }
     }
 }

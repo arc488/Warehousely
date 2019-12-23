@@ -10,6 +10,6 @@ namespace Warehousely.DAL.IRepositories
     {
         IEnumerable<Address> AllAddresses { get; }
         Address GetById(int id);
-        void CreateAddress(Address address);
+        Address CreateAddress(Address address);
     }
 }

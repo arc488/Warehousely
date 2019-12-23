@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +16,9 @@ namespace Warehousely.DAL
             _appDbContext = appDbContext;
         }
 
-        public IEnumerable<Customer> AllCustomers => _appDbContext.Customers;
-
+        public IEnumerable<Customer> AllCustomers => _appDbContext.Customers
+                                                    .Include(a => a.Address);
+        
         public void CreateCustomer(Customer customer)
         {
             _appDbContext.Customers.Add(customer);

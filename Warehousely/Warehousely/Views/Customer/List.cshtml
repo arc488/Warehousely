@@ -12,11 +12,15 @@
         <tbody>
             @foreach (var customer in Model)
             {
-                <tr>
-                    <th scope="row">@customer.Id</th>
-                    <td>@customer.Name</td>
-                    <td><a asp-controller="Product" asp-action="Detail" asp-route-id="@customer.Id" class="btn btn-primary">Details</a></td>
-                </tr>
+            <tr>
+                <th scope="row">@customer.Id</th>
+                <td>@customer.Name</td>
+                @if (customer.Address != null)
+                {
+                    <td>@customer.Address.Address1</td>
+                }
+                <td><a asp-controller="Customer" asp-action="Detail" asp-route-id="@customer.Id" class="btn btn-primary">Details</a></td>
+            </tr>
             }
         </tbody>
     </table>

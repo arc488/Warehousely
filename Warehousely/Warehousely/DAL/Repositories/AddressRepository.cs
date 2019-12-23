@@ -18,10 +18,11 @@ namespace Warehousely.DAL.Repositories
 
         public IEnumerable<Address> AllAddresses => _appDbContext.Addresses;
 
-        public void CreateAddress(Address address)
+        public Address CreateAddress(Address address)
         {
             _appDbContext.Addresses.Add(address);
             _appDbContext.SaveChanges();
+            return address;
         }
 
         public Address GetById(int id)

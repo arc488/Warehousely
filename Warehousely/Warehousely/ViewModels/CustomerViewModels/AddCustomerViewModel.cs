@@ -19,11 +19,10 @@ namespace Warehousely.ViewModels.CustomerViewModels
         public string Address2 { get; set; }
         [Required, StringLength(20, MinimumLength = 2, ErrorMessage = "City name has to be between 2 and 20 characters long")]
         public string City { get; set; }
-        [Required, StringLength(2, MinimumLength = 10)]
+        [Required, StringLength(10, MinimumLength = 2)]
         public string State { get; set; }
         [Required, StringLength(8, ErrorMessage = "Zipcode cannot exceed 8 characters")]
         public string Zip { get; set; }
-        public double Lat { get; set; }
-        public double Long { get; set; }
+
     }
 }

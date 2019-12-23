@@ -10,8 +10,8 @@ using Warehousely.DAL;
 namespace Warehousely.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191222045559_CustomersAndOrders")]
-    partial class CustomersAndOrders
+    [Migration("20191223052843_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,14 +221,17 @@ namespace Warehousely.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Warehousely.Models.Customer", b =>
+            modelBuilder.Entity("Warehousely.Models.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Address1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address2")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
@@ -240,9 +243,6 @@ namespace Warehousely.Migrations
                     b.Property<double>("Long")
                         .HasColumnType("float");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
@@ -250,6 +250,32 @@ namespace Warehousely.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("Warehousely.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Customers");
                 });
@@ -436,6 +462,13 @@ namespace Warehousely.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Warehousely.Models.Customer", b =>
+                {
+                    b.HasOne("Warehousely.Models.Address", null)
+                        .WithMany("Customers")
+                        .HasForeignKey("AddressId");
                 });
 
             modelBuilder.Entity("Warehousely.Models.Order", b =>
