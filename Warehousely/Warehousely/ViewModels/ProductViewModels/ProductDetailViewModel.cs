@@ -11,8 +11,8 @@ namespace Warehousely.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public int? Count { get; set; }
-        public string Size { get; set; }
+        public string SizeName { get; set; }
         public decimal? Price { get; set; }
-        public byte[] Image { get; set; }
+        public byte[] ImageContent { get; set; }
     }
 }

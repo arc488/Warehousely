@@ -43,18 +43,13 @@ namespace Warehousely.Controllers
         public IActionResult Detail(int id)
         {
             var product = _productRepository.GetById(id);
-            if (product == null) return NotFound();
-            var productDetailViewModel = new ProductDetailViewModel
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Count = product.Count,
-                Price = product.Price,
-                Size = product.Size.Name,
-                Image = product.Image.Content
-            };
 
-            return View(productDetailViewModel);
+            if (product == null) return NotFound();
+
+            var viewModel = new ProductDetailViewModel();
+            viewModel = _mapper.Map<ProductDetailViewModel>(product);
+
+            return View(viewModel);
         }
 
         public IActionResult DeleteProduct(int id)
@@ -69,18 +64,13 @@ namespace Warehousely.Controllers
         public IActionResult Edit(int id)
         {
             var product = _productRepository.GetById(id);
-            var productEditViewModel = new ProductEditViewModel
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Count = product.Count,
-                Size = product.Size.Id,
-                Image = product.Image.Content,
-                AllSizes = _sizeRepository.AllSizes
-            };
 
-            return View(productEditViewModel);
+            var viewModel = new ProductEditViewModel();
+
+            viewModel = _mapper.Map<ProductEditViewModel>(product);
+            viewModel.AllSizes = _sizeRepository.AllSizes;
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -88,14 +78,10 @@ namespace Warehousely.Controllers
         {
             if (!ModelState.IsValid) return View(_productRepository.GetById(model.Id));
 
-            var product = new Product
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Price = model.Price,
-                Count = model.Count,
-                Size = _sizeRepository.GetById(model.Size)
-            };
+            var product = new Product();
+
+            product = _mapper.Map<Product>(model);
+            product.Size = _sizeRepository.GetById(model.SizeId);
 
             if (file != null)
             {
@@ -123,16 +109,11 @@ namespace Warehousely.Controllers
             }
 
             var imageFileId = _imageFileRepository.CreateImage(file);
+            var product = _mapper.Map<Product>(model);
 
-            var product = new Product
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Price = model.Price,
-                Count = model.Count,
-                Size = _sizeRepository.GetById(model.Size),
-                Image = _imageFileRepository.GetById(imageFileId)
-        };
+            product.Size = _sizeRepository.GetById(model.Size);
+            product.Image = _imageFileRepository.GetById(imageFileId);
+
 
             _productRepository.CreateProduct(product);
             ViewBag.Message = "Product Added Successfully";

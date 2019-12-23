@@ -35,25 +35,25 @@
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label asp-for="Size" class="control-label"></label>
+                        <label asp-for="SizeId" class="control-label"></label>
                     </th>
                     <td>
-                        <select asp-for="Size" class="form-control">
-                            @foreach (var size in Model.AllSizes)
+                        <select asp-for="SizeId" class="form-control">
+                            @foreach (var SizeId in Model.AllSizes)
                             {
-                                if (size.Id == Model.Size)
+                                if (SizeId.Id == Model.SizeId)
                                 {
-                                    <option value="@size.Id" selected>@size.Name</option>
+                                    <option value="@SizeId.Id" selected>@SizeId.Name</option>
 
                                 }
                                 else
                                 {
-                                    <option value="@size.Id">@size.Name</option>
+                                    <option value="@SizeId.Id">@SizeId.Name</option>
 
                                 }
                             }
                         </select>
-                        <span asp-validation-for="Size" class="text-danger"></span>
+                        <span asp-validation-for="SizeId" class="text-danger"></span>
                     </td>
                 </tr>
                 <tr>
@@ -67,11 +67,11 @@
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label asp-for="Image" class="control-label"></label>
+                        <label asp-for="ImageContent" class="control-label"></label>
                     </th>
                     <td>
-                        <input type="file" name="file" asp-for="Image" class="form-control" />
-                        <span asp-validation-for="Image" class="text-danger"></span>
+                        <input type="file" name="file" asp-for="ImageContent" class="form-control" />
+                        <span asp-validation-for="ImageContent" class="text-danger"></span>
                     </td>
                 </tr>
             </tbody>
