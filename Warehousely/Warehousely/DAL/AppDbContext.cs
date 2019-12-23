@@ -21,12 +21,18 @@ namespace Warehousely.DAL
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Customer>()
+                .HasOne(a => a.Address)
+                .WithOne(a => a.Customer)
+                .HasForeignKey<Address>(c => c.Id);
+
             modelBuilder.Entity<Size>()
                 .HasData(new Size
                 {

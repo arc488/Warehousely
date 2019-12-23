@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Warehousely.DAL;
+using Warehousely.DAL.IRepositories;
+using Warehousely.DAL.Repositories;
 
 namespace Warehousely
 {
@@ -35,6 +37,7 @@ namespace Warehousely
             services.AddScoped<ISizeRepository, SizeRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
 

@@ -22,17 +22,21 @@ namespace Warehousely.Controllers
         private readonly IImageFileRepository _imageFileRepository;
         private readonly IMapper _mapper;
 
+        #region Constructor
         public ProductController(
             IProductRepository productRepository,
             ISizeRepository sizeRepository,
             IImageFileRepository imageFileRepository,
-            IMapper mapper)
+            IMapper mapper
+        )
         {
             _productRepository = productRepository;
             _sizeRepository = sizeRepository;
             _imageFileRepository = imageFileRepository;
             _mapper = mapper;
-        }
+        } 
+        #endregion
+
         public IActionResult List()
         {
             var products = _productRepository.AllProducts;

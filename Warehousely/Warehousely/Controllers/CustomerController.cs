@@ -22,16 +22,21 @@ namespace Warehousely.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult AddCustomer()
-        {
-            var model = new AddCustomerViewModel();
-            return View(model);
-        }
-
         public IActionResult List()
         {
             var customers = _customerRepository.AllCustomers;
             return View(customers);
+        }
+
+        public IActionResult EditCustomer()
+        {
+            return View();
+        }
+
+        public IActionResult AddCustomer()
+        {
+            var model = new AddCustomerViewModel();
+            return View(model);
         }
 
         [HttpPost]
