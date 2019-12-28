@@ -27,7 +27,7 @@ namespace Warehousely.DAL
 
         public Customer GetById(int id)
         {
-            var customer = _appDbContext.Customers.FirstOrDefault<Customer>(c => c.Id == id);
+            var customer = _appDbContext.Customers.Include(a => a.Address).FirstOrDefault<Customer>(c => c.Id == id);
             return customer;
         }
     }

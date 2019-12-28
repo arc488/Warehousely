@@ -33,19 +33,19 @@ namespace Warehousely.Controllers
             return View(customers);
         }
 
-        public IActionResult EditCustomer()
+        public IActionResult Edit()
         {
             return View();
         }
 
-        public IActionResult AddCustomer()
+        public IActionResult Add()
         {
             var model = new AddCustomerViewModel();
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult AddCustomer(AddCustomerViewModel model)
+        public IActionResult Add(AddCustomerViewModel model)
         {
             if (!ModelState.IsValid) return View();
 
@@ -56,6 +56,15 @@ namespace Warehousely.Controllers
             if (addressEntry != null) customer.Address = addressEntry;
             _customerRepository.CreateCustomer(customer);
             return RedirectToAction("List");
+        }
+
+        public IActionResult Detail(int id)
+        {
+            var viewModel = new CustomerDetailViewModel();
+            var customer = _customerRepository.GetById(id);
+            viewModel = _mapper.Map<CustomerDetailViewModel>(customer);
+
+            return View(viewModel);
         }
     }
 }

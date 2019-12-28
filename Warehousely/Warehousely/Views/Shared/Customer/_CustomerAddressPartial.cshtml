@@ -1,0 +1,51 @@
+﻿@model CustomerDetailViewModel
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th scope="row">
+                <label asp-for="@Model.Address.Address1" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly asp-for="@Model.Address.Address1" class="form-control" />
+                <span asp-validation-for="@Model.Address.Address1" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="@Model.Address.Address2" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly asp-for="@Model.Address.Address2" class="form-control" />
+                <span asp-validation-for="@Model.Address.Address2" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="@Model.Address.City" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly asp-for="@Model.Address.City" class="form-control" />
+                <span asp-validation-for="@Model.Address.City" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="@Model.Address.State" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly asp-for="@Model.Address.State" class="form-control" />
+                <span asp-validation-for="@Model.Address.State" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="@Model.Address.Zip" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly asp-for="@Model.Address.Zip" class="form-control" />
+                <span asp-validation-for="@Model.Address.Zip" class="text-danger"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

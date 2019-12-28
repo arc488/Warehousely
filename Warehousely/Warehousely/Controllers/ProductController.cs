@@ -97,7 +97,7 @@ namespace Warehousely.Controllers
             return RedirectToAction("Edit", product.Id);
         }
 
-        public IActionResult AddProduct()
+        public IActionResult Add()
         {
             var model = new ProductAddViewModel();
             model.AllSizes = _sizeRepository.AllSizes;
@@ -105,7 +105,7 @@ namespace Warehousely.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(ProductAddViewModel model, IFormFile file)
+        public IActionResult Add(ProductAddViewModel model, IFormFile file)
         {
             if (!ModelState.IsValid)
             {
@@ -121,7 +121,7 @@ namespace Warehousely.Controllers
 
             _productRepository.CreateProduct(product);
             ViewBag.Message = "Product Added Successfully";
-            return RedirectToAction("AddProduct");
+            return RedirectToAction("Add");
         }
 
         public IActionResult RemoveAll()

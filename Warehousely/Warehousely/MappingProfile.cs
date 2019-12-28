@@ -29,6 +29,12 @@ namespace Warehousely
                                                       .ForMember(p => p.Image, cfg => cfg.Ignore());
             CreateMap<AddCustomerViewModel, Customer>();
             CreateMap<AddCustomerViewModel, Address>();
+
+            CreateMap<CustomerDetailViewModel, Customer>();
+            CreateMap<Customer, CustomerDetailViewModel>();
+
+            CreateMap<CustomerDetailViewModel, Address>();
+            CreateMap<Address, CustomerDetailViewModel>();
         }
     }
 }
