@@ -8,6 +8,8 @@ namespace Warehousely.ViewModels.CustomerViewModels
 {
     public class CustomerDetailViewModel
     {
+        public bool IsReadonly { get; set; }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }

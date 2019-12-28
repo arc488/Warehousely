@@ -64,6 +64,7 @@ namespace Warehousely.Controllers
             var customer = _customerRepository.GetById(id);
             viewModel = _mapper.Map<CustomerDetailViewModel>(customer);
             _mapper.Map(customer.Address, viewModel);
+            viewModel.IsReadonly = true;
 
             return View(viewModel);
         }
