@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +30,12 @@ namespace Warehousely.DAL.Repositories
         {
             var address = _appDbContext.Addresses.FirstOrDefault<Address>(a => a.Id == id);
             return address;
+        }
+
+        public void UpdateAddress(Address address)
+        {
+            _appDbContext.Entry(address).State = EntityState.Modified;
+            _appDbContext.SaveChanges();
         }
     }
 }

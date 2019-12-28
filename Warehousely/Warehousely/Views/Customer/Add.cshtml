@@ -1,4 +1,4 @@
-﻿@model AddCustomerViewModel
+﻿@model CustumerViewModel
 
 @if (!String.IsNullOrEmpty(ViewBag.Message))
 {
@@ -6,7 +6,7 @@
 }
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<form asp-controller="Customer" asp-action="AddCustomer" method="post" enctype="multipart/form-data">
+<form asp-controller="Customer" asp-action="Add" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
 
     <div class="form-group">

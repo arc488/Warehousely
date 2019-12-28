@@ -30,11 +30,11 @@ namespace Warehousely
             CreateMap<AddCustomerViewModel, Customer>();
             CreateMap<AddCustomerViewModel, Address>();
 
-            CreateMap<CustomerDetailViewModel, Customer>();
-            CreateMap<Customer, CustomerDetailViewModel>();
+            CreateMap<CustumerViewModel, Customer>();
+            CreateMap<Customer, CustumerViewModel>();
 
-            CreateMap<CustomerDetailViewModel, Address>();
-            CreateMap<Address, CustomerDetailViewModel>();
+            CreateMap<CustumerViewModel, Address>();
+            CreateMap<Address, CustumerViewModel>();
         }
     }
 }

@@ -30,5 +30,11 @@ namespace Warehousely.DAL
             var customer = _appDbContext.Customers.Include(a => a.Address).FirstOrDefault<Customer>(c => c.Id == id);
             return customer;
         }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            _appDbContext.Entry(customer).State = EntityState.Modified;
+            _appDbContext.SaveChanges();
+        }
     }
 }

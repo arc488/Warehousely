@@ -56,6 +56,7 @@ namespace Warehousely.Controllers
             return View(viewModel);
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteProduct(int id)
         {
             var product = _productRepository.GetById(id);
@@ -78,6 +79,7 @@ namespace Warehousely.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(ProductEditViewModel model, IFormFile file)
         {
             if (!ModelState.IsValid) return View(_productRepository.GetById(model.Id));
@@ -105,6 +107,7 @@ namespace Warehousely.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Add(ProductAddViewModel model, IFormFile file)
         {
             if (!ModelState.IsValid)
@@ -124,10 +127,5 @@ namespace Warehousely.Controllers
             return RedirectToAction("Add");
         }
 
-        public IActionResult RemoveAll()
-        {
-            _productRepository.RemoveAll();
-            return RedirectToAction("List");
-        }
     }
 }

@@ -11,5 +11,6 @@ namespace Warehousely.DAL
         IEnumerable<Customer> AllCustomers { get;  }
         Customer GetById(int id);
         void CreateCustomer(Customer customer);
+        void UpdateCustomer(Customer customer);
     }
 }

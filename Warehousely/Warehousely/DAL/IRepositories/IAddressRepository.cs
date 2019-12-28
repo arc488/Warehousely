@@ -11,5 +11,6 @@ namespace Warehousely.DAL.IRepositories
         IEnumerable<Address> AllAddresses { get; }
         Address GetById(int id);
         Address CreateAddress(Address address);
+        void UpdateAddress(Address address);
     }
 }

@@ -33,19 +33,16 @@ namespace Warehousely.Controllers
             return View(customers);
         }
 
-        public IActionResult Edit()
-        {
-            return View();
-        }
 
         public IActionResult Add()
         {
-            var model = new AddCustomerViewModel();
+            var model = new CustumerViewModel();
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Add(AddCustomerViewModel model)
+        [ValidateAntiForgeryToken]
+        public IActionResult Add(CustumerViewModel model)
         {
             if (!ModelState.IsValid) return View();
 
@@ -60,13 +57,39 @@ namespace Warehousely.Controllers
 
         public IActionResult Detail(int id)
         {
-            var viewModel = new CustomerDetailViewModel();
+            var viewModel = new CustumerViewModel();
             var customer = _customerRepository.GetById(id);
-            viewModel = _mapper.Map<CustomerDetailViewModel>(customer);
+            viewModel = _mapper.Map<CustumerViewModel>(customer);
             _mapper.Map(customer.Address, viewModel);
             viewModel.IsReadonly = true;
 
             return View(viewModel);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var viewModel = new CustumerViewModel();
+            var customer = _customerRepository.GetById(id);
+            viewModel = _mapper.Map<CustumerViewModel>(customer);
+            _mapper.Map(customer.Address, viewModel);
+            viewModel.IsReadonly = false;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(CustumerViewModel model)
+        {
+            if (!ModelState.IsValid) return View();
+
+            var customer = _mapper.Map<Customer>(model);
+            var address = _mapper.Map<Address>(model);
+
+            _customerRepository.UpdateCustomer(customer);
+            _addressRepository.UpdateAddress(address);
+
+            return RedirectToAction("List");
         }
     }
 }
