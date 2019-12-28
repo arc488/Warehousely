@@ -1,43 +1,36 @@
 ﻿@model CustumerViewModel
 
-    <table class="table table-striped">
-        <tbody>
-            <tr>
-                <th scope="row">
-                    <label asp-for="Id" class="control-label"></label>
-                </th>
-                <td>
-                    <input readonly="@Model.IsReadonly"  asp-for="Id" class="form-control" />
-                    <span asp-validation-for="Id" class="text-danger"></span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <label asp-for="Name" class="control-label"></label>
-                </th>
-                <td>
-                    <input readonly="@Model.IsReadonly"  asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <label asp-for="Email" class="control-label"></label>
-                </th>
-                <td>
-                    <input readonly="@Model.IsReadonly"  asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <label asp-for="Phone" class="control-label"></label>
-                </th>
-                <td>
-                    <input readonly="@Model.IsReadonly"  asp-for="Phone" class="form-control" />
-                    <span asp-validation-for="Phone" class="text-danger"></span>
-                </td>
-            </tr>
-           
-        </tbody>
-    </table>
+<input hidden readonly asp-for="Id" class="form-control" />
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th scope="row">
+                <label asp-for="Name" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="Email" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="Phone" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

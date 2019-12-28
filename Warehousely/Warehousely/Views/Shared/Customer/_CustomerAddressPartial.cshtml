@@ -1,16 +1,10 @@
 ﻿@model CustumerViewModel
 
+<input readonly hidden asp-for="AddressId" class="form-control" />
+
 <table class="table table-striped">
     <tbody>
-        <tr>
-            <th scope="row">
-                <label asp-for="AddressId" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="AddressId" class="form-control" />
-                <span asp-validation-for="AddressId" class="text-danger"></span>
-            </td>
-        </tr>
+
         <tr>
             <th scope="row">
                 <label asp-for="Address1" class="control-label"></label>

@@ -18,8 +18,6 @@ namespace Warehousely
                                                      .ForMember(p => p.Size, cfg => cfg.Ignore());
             CreateMap<Product, ProductAddViewModel > ().ForMember(p => p.Image, cfg => cfg.Ignore())
                                                        .ForMember(p => p.Size, cfg => cfg.Ignore());
-            CreateMap<AddCustomerViewModel, Customer> ();
-            CreateMap<Customer, AddCustomerViewModel > ();
 
             CreateMap<Product, ProductDetailViewModel>();
 
@@ -27,8 +25,6 @@ namespace Warehousely
 
             CreateMap<ProductEditViewModel, Product>().ForMember(p => p.Size, cfg => cfg.Ignore())
                                                       .ForMember(p => p.Image, cfg => cfg.Ignore());
-            CreateMap<AddCustomerViewModel, Customer>();
-            CreateMap<AddCustomerViewModel, Address>();
 
             CreateMap<CustumerViewModel, Customer>();
             CreateMap<Customer, CustumerViewModel>();
