@@ -63,6 +63,7 @@ namespace Warehousely.Controllers
             var viewModel = new CustomerDetailViewModel();
             var customer = _customerRepository.GetById(id);
             viewModel = _mapper.Map<CustomerDetailViewModel>(customer);
+            _mapper.Map(customer.Address, viewModel);
 
             return View(viewModel);
         }
