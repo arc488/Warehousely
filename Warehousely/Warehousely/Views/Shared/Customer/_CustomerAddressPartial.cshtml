@@ -1,0 +1,54 @@
+﻿@model CustumerViewModel
+
+<input readonly hidden asp-for="AddressId" class="form-control" />
+
+<table class="table table-striped">
+    <tbody>
+
+        <tr>
+            <th scope="row">
+                <label asp-for="Address1" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="Address1" class="form-control" />
+                <span asp-validation-for="Address1" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="Address2" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="Address2" class="form-control" />
+                <span asp-validation-for="Address2" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="City" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="State" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="Zip" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="Zip" class="form-control" />
+                <span asp-validation-for="Zip" class="text-danger"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

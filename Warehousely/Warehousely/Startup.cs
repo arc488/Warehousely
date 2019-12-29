@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Warehousely.DAL;
+using Warehousely.DAL.IRepositories;
+using Warehousely.DAL.Repositories;
 
 namespace Warehousely
 {
@@ -32,7 +35,21 @@ namespace Warehousely
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageFileRepository, ImageFileRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +70,7 @@ namespace Warehousely
             app.UseAuthentication();
 
             app.UseRouting();
-
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

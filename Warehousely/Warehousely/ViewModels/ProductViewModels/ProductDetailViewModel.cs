@@ -6,14 +6,13 @@ using Warehousely.Models;
 
 namespace Warehousely.ViewModels
 {
-    public class ProductEditViewModel
+    public class ProductDetailViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public int? Count { get; set; }
-        public int Size { get; set; }
+        public string SizeName { get; set; }
         public decimal? Price { get; set; }
-        public byte[] Image { get; set; }
-        public IEnumerable<Size> AllSizes { get; set; }
+        public byte[] ImageContent { get; set; }
     }
 }

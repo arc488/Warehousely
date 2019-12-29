@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,16 +20,23 @@ namespace Warehousely.Controllers
         private readonly IProductRepository _productRepository;
         private readonly ISizeRepository _sizeRepository;
         private readonly IImageFileRepository _imageFileRepository;
+        private readonly IMapper _mapper;
 
+        #region Constructor
         public ProductController(
             IProductRepository productRepository,
             ISizeRepository sizeRepository,
-            IImageFileRepository imageFileRepository)
+            IImageFileRepository imageFileRepository,
+            IMapper mapper
+        )
         {
             _productRepository = productRepository;
             _sizeRepository = sizeRepository;
             _imageFileRepository = imageFileRepository;
-        }
+            _mapper = mapper;
+        } 
+        #endregion
+
         public IActionResult List()
         {
             var products = _productRepository.AllProducts;
@@ -39,20 +47,16 @@ namespace Warehousely.Controllers
         public IActionResult Detail(int id)
         {
             var product = _productRepository.GetById(id);
-            if (product == null) return NotFound();
-            var productDetailViewModel = new ProductDetailViewModel
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Count = product.Count,
-                Price = product.Price,
-                Size = product.Size.Name,
-                Image = product.Image.Content
-            };
 
-            return View(productDetailViewModel);
+            if (product == null) return NotFound();
+
+            var viewModel = new ProductDetailViewModel();
+            viewModel = _mapper.Map<ProductDetailViewModel>(product);
+
+            return View(viewModel);
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteProduct(int id)
         {
             var product = _productRepository.GetById(id);
@@ -65,33 +69,25 @@ namespace Warehousely.Controllers
         public IActionResult Edit(int id)
         {
             var product = _productRepository.GetById(id);
-            var productEditViewModel = new ProductEditViewModel
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Count = product.Count,
-                Size = product.Size.Id,
-                Image = product.Image.Content,
-                AllSizes = _sizeRepository.AllSizes
-            };
 
-            return View(productEditViewModel);
+            var viewModel = new ProductEditViewModel();
+
+            viewModel = _mapper.Map<ProductEditViewModel>(product);
+            viewModel.AllSizes = _sizeRepository.AllSizes;
+
+            return View(viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(ProductEditViewModel model, IFormFile file)
         {
             if (!ModelState.IsValid) return View(_productRepository.GetById(model.Id));
 
-            var product = new Product
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Price = model.Price,
-                Count = model.Count,
-                Size = _sizeRepository.GetById(model.Size)
-            };
+            var product = new Product();
+
+            product = _mapper.Map<Product>(model);
+            product.Size = _sizeRepository.GetById(model.SizeId);
 
             if (file != null)
             {
@@ -103,7 +99,7 @@ namespace Warehousely.Controllers
             return RedirectToAction("Edit", product.Id);
         }
 
-        public IActionResult AddProduct()
+        public IActionResult Add()
         {
             var model = new ProductAddViewModel();
             model.AllSizes = _sizeRepository.AllSizes;
@@ -111,7 +107,8 @@ namespace Warehousely.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(ProductAddViewModel model, IFormFile file)
+        [ValidateAntiForgeryToken]
+        public IActionResult Add(ProductAddViewModel model, IFormFile file)
         {
             if (!ModelState.IsValid)
             {
@@ -119,26 +116,16 @@ namespace Warehousely.Controllers
             }
 
             var imageFileId = _imageFileRepository.CreateImage(file);
+            var product = _mapper.Map<Product>(model);
 
-            var product = new Product
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Price = model.Price,
-                Count = model.Count,
-                Size = _sizeRepository.GetById(model.Size),
-                Image = _imageFileRepository.GetById(imageFileId)
-        };
+            product.Size = _sizeRepository.GetById(model.Size);
+            product.Image = _imageFileRepository.GetById(imageFileId);
+
 
             _productRepository.CreateProduct(product);
             ViewBag.Message = "Product Added Successfully";
-            return RedirectToAction("AddProduct");
+            return RedirectToAction("Add");
         }
 
-        public IActionResult RemoveAll()
-        {
-            _productRepository.RemoveAll();
-            return RedirectToAction("List");
-        }
     }
 }

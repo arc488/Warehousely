@@ -3,10 +3,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Warehousely.Migrations
 {
-    public partial class AddedIdentity : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Address1 = table.Column<string>(nullable: true),
+                    Address2 = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Zip = table.Column<int>(nullable: false),
+                    Lat = table.Column<double>(nullable: false),
+                    Long = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -44,6 +63,59 @@ namespace Warehousely.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImageFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ContentDisposition = table.Column<string>(nullable: true),
+                    ContentType = table.Column<string>(nullable: true),
+                    FileName = table.Column<string>(nullable: true),
+                    Length = table.Column<long>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Content = table.Column<byte[]>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImageFiles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sizes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sizes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    AddressId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customers_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +224,86 @@ namespace Warehousely.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(nullable: true),
+                    CreatedById = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    DeliveryDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Count = table.Column<int>(nullable: false),
+                    SizeId = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    ImageId = table.Column<int>(nullable: true),
+                    OrderId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_ImageFiles_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "ImageFiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Sizes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "375 ml Demi" });
+
+            migrationBuilder.InsertData(
+                table: "Sizes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "750 ml Standard" });
+
+            migrationBuilder.InsertData(
+                table: "Sizes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "1.5 L Magnum" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +342,36 @@ namespace Warehousely.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_AddressId",
+                table: "Customers",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CreatedById",
+                table: "Orders",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerId",
+                table: "Orders",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ImageId",
+                table: "Products",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_OrderId",
+                table: "Products",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_SizeId",
+                table: "Products",
+                column: "SizeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +392,28 @@ namespace Warehousely.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "ImageFiles");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Sizes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
         }
     }
 }

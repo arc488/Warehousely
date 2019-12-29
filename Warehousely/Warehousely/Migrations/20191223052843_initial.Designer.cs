@@ -10,8 +10,8 @@ using Warehousely.DAL;
 namespace Warehousely.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191218061129_AddedIdentity")]
-    partial class AddedIdentity
+    [Migration("20191223052843_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,65 @@ namespace Warehousely.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Warehousely.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Lat")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Long")
+                        .HasColumnType("float");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Zip")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("Warehousely.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Customers");
+                });
+
             modelBuilder.Entity("Warehousely.Models.ImageFile", b =>
                 {
                     b.Property<int>("Id")
@@ -251,6 +310,37 @@ namespace Warehousely.Migrations
                     b.ToTable("ImageFiles");
                 });
 
+            modelBuilder.Entity("Warehousely.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("Warehousely.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -270,6 +360,9 @@ namespace Warehousely.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("Price")
                         .IsRequired()
                         .HasColumnType("decimal(18,2)");
@@ -280,6 +373,8 @@ namespace Warehousely.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ImageId");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("SizeId");
 
@@ -369,11 +464,33 @@ namespace Warehousely.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Warehousely.Models.Customer", b =>
+                {
+                    b.HasOne("Warehousely.Models.Address", null)
+                        .WithMany("Customers")
+                        .HasForeignKey("AddressId");
+                });
+
+            modelBuilder.Entity("Warehousely.Models.Order", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("Warehousely.Models.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId");
+                });
+
             modelBuilder.Entity("Warehousely.Models.Product", b =>
                 {
                     b.HasOne("Warehousely.Models.ImageFile", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
+
+                    b.HasOne("Warehousely.Models.Order", null)
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("Warehousely.Models.Size", "Size")
                         .WithMany("Products")
