@@ -12,5 +12,6 @@ namespace Warehousely.DAL
         Customer GetById(int id);
         void CreateCustomer(Customer customer);
         void UpdateCustomer(Customer customer);
+        void DeleteCustomer(Customer customer);
     }
 }

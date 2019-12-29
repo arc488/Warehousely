@@ -25,6 +25,12 @@ namespace Warehousely.DAL
             _appDbContext.SaveChanges();
         }
 
+        public void DeleteCustomer(Customer customer)
+        {
+            _appDbContext.Customers.Remove(customer);
+            _appDbContext.SaveChanges();
+        }
+
         public Customer GetById(int id)
         {
             var customer = _appDbContext.Customers.Include(a => a.Address).FirstOrDefault<Customer>(c => c.Id == id);
