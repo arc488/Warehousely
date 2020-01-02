@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.DAL;
 
 namespace Warehousely.Models
 {
-    public class Product
+    public class Product : BaseEntity
     {
         [Key]
         public int Id { get; set; }

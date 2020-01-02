@@ -40,6 +40,10 @@ namespace Warehousely.ViewModels.CustomerViewModels
         [Required, StringLength(8, MinimumLength = 5)]
         public string Zip { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime DateCreated { get; set; }
+
         public IEnumerable<Order> Orders { get; set; }
     }
 }

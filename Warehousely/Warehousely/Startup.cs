@@ -32,6 +32,7 @@ namespace Warehousely
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
             services.AddMvc();
+            services.AddSession();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageFileRepository, ImageFileRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
@@ -68,7 +69,7 @@ namespace Warehousely
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseRouting();
             
             app.UseAuthorization();
