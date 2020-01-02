@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Warehousely.DAL;
 
 namespace Warehousely.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200102024244_CreatedByModifiedByAdded")]
+    partial class CreatedByModifiedByAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,8 +237,8 @@ namespace Warehousely.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CratedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CratedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -250,8 +252,8 @@ namespace Warehousely.Migrations
                     b.Property<double>("Long")
                         .HasColumnType("float");
 
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
@@ -260,6 +262,10 @@ namespace Warehousely.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CratedById");
+
+                    b.HasIndex("ModifiedById");
 
                     b.ToTable("Addresses");
                 });
@@ -274,8 +280,8 @@ namespace Warehousely.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CratedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CratedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -286,8 +292,8 @@ namespace Warehousely.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -298,6 +304,10 @@ namespace Warehousely.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("CratedById");
+
+                    b.HasIndex("ModifiedById");
 
                     b.ToTable("Customers");
                 });
@@ -318,8 +328,8 @@ namespace Warehousely.Migrations
                     b.Property<string>("ContentType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CratedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CratedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -333,13 +343,17 @@ namespace Warehousely.Migrations
                     b.Property<long>("Length")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CratedById");
+
+                    b.HasIndex("ModifiedById");
 
                     b.ToTable("ImageFiles");
                 });
@@ -351,8 +365,8 @@ namespace Warehousely.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CratedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CratedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedById")
                         .HasColumnType("nvarchar(450)");
@@ -369,14 +383,18 @@ namespace Warehousely.Migrations
                     b.Property<DateTime>("DeliveryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CratedById");
 
                     b.HasIndex("CreatedById");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("ModifiedById");
 
                     b.ToTable("Orders");
                 });
@@ -392,8 +410,8 @@ namespace Warehousely.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("CratedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CratedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -404,8 +422,8 @@ namespace Warehousely.Migrations
                     b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -424,7 +442,11 @@ namespace Warehousely.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CratedById");
+
                     b.HasIndex("ImageId");
+
+                    b.HasIndex("ModifiedById");
 
                     b.HasIndex("OrderId");
 
@@ -440,8 +462,8 @@ namespace Warehousely.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CratedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CratedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -449,13 +471,17 @@ namespace Warehousely.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CratedById");
+
+                    b.HasIndex("ModifiedById");
 
                     b.ToTable("Sizes");
 
@@ -534,15 +560,49 @@ namespace Warehousely.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Warehousely.Models.Address", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CratedBy")
+                        .WithMany()
+                        .HasForeignKey("CratedById");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
+                });
+
             modelBuilder.Entity("Warehousely.Models.Customer", b =>
                 {
                     b.HasOne("Warehousely.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CratedBy")
+                        .WithMany()
+                        .HasForeignKey("CratedById");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
+                });
+
+            modelBuilder.Entity("Warehousely.Models.ImageFile", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CratedBy")
+                        .WithMany()
+                        .HasForeignKey("CratedById");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
                 });
 
             modelBuilder.Entity("Warehousely.Models.Order", b =>
                 {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CratedBy")
+                        .WithMany()
+                        .HasForeignKey("CratedById");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
@@ -550,13 +610,25 @@ namespace Warehousely.Migrations
                     b.HasOne("Warehousely.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
                 });
 
             modelBuilder.Entity("Warehousely.Models.Product", b =>
                 {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CratedBy")
+                        .WithMany()
+                        .HasForeignKey("CratedById");
+
                     b.HasOne("Warehousely.Models.ImageFile", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
 
                     b.HasOne("Warehousely.Models.Order", null)
                         .WithMany("Products")
@@ -567,6 +639,17 @@ namespace Warehousely.Migrations
                         .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Warehousely.Models.Size", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CratedBy")
+                        .WithMany()
+                        .HasForeignKey("CratedById");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
                 });
 #pragma warning restore 612, 618
         }

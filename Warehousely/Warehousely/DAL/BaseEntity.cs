@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace Warehousely.DAL
     {
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+        public string CratedBy { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }
