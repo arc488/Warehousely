@@ -42,6 +42,7 @@ namespace Warehousely
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
             services.AddControllersWithViews();
 
             var mappingConfig = new MapperConfiguration(mc =>

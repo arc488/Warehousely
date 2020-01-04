@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Warehousely.DAL;
 
 namespace Warehousely.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200104055122_ChangedOrderItem")]
+    partial class ChangedOrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,7 +237,7 @@ namespace Warehousely.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CratedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -274,7 +276,7 @@ namespace Warehousely.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CratedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -318,7 +320,7 @@ namespace Warehousely.Migrations
                     b.Property<string>("ContentType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CratedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -351,7 +353,7 @@ namespace Warehousely.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CratedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CustomerId")
@@ -383,7 +385,7 @@ namespace Warehousely.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CratedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -424,7 +426,7 @@ namespace Warehousely.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CratedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -467,7 +469,7 @@ namespace Warehousely.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CratedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")

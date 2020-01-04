@@ -7,5 +7,9 @@ namespace Warehousely.Components
 {
     public class ShoppingCartSummary
     {
+        public ShoppingCartSummary()
+        {
+
+        }
     }
 }

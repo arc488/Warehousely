@@ -29,6 +29,7 @@ namespace Warehousely.DAL
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         public override int SaveChanges()
         {
@@ -49,7 +50,7 @@ namespace Warehousely.DAL
                 if (entityEntry.State == EntityState.Added)
                 {
                     ((BaseEntity)entityEntry.Entity).DateCreated = DateTime.Now;
-                    ((BaseEntity)entityEntry.Entity).CratedBy = userName;
+                    ((BaseEntity)entityEntry.Entity).CreatedBy = userName;
                 }
             }
 

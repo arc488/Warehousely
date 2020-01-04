@@ -11,8 +11,7 @@ namespace Warehousely.Models
     {
         public int Id { get; set; }
         public Customer Customer { get; set; }
-        public IEnumerable<Product> Products { get; set; }
-        public IdentityUser CreatedBy { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
         public DateTime DeliveryDate { get; set; }
     }
 }

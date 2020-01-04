@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Warehousely.Models;
 using Warehousely.ViewModels;
 using Warehousely.ViewModels.CustomerViewModels;
+using Warehousely.ViewModels.OrderViewModels;
 
 namespace Warehousely
 {
@@ -31,6 +32,9 @@ namespace Warehousely
 
             CreateMap<CustumerViewModel, Address>();
             CreateMap<Address, CustumerViewModel>();
+
+            CreateMap<Product, OrderItemViewModel>();
+            CreateMap<OrderItemViewModel, Product>();
         }
     }
 }

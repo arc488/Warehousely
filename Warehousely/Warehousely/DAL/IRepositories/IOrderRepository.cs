@@ -10,6 +10,6 @@ namespace Warehousely.DAL
     {
         IEnumerable<Order> AllOrders { get; } 
         Order GetById(int id);
-        void CreateOrder(Order Order);
+        void Create(Order Order);
     }
 }
