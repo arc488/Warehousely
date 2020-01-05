@@ -18,7 +18,7 @@ namespace Warehousely.DAL
 
         public Size GetById(int id)
         {
-            var size = _appDbContext.Sizes.FirstOrDefault<Size>(s => s.Id == id);
+            var size = _appDbContext.Sizes.FirstOrDefault<Size>(s => s.SizeId == id);
             return size;
         }
     }

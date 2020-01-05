@@ -29,7 +29,7 @@ namespace Warehousely.DAL
 
         public Order GetById(int id)
         {
-            var order = _appDbContext.Orders.FirstOrDefault<Order>(o => o.Id == id);
+            var order = _appDbContext.Orders.FirstOrDefault<Order>(o => o.OrderId == id);
             return order;
         }
     }

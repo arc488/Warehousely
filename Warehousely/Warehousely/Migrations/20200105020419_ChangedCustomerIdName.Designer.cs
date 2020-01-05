@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Warehousely.DAL;
 
 namespace Warehousely.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200105020419_ChangedCustomerIdName")]
+    partial class ChangedCustomerIdName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,7 +306,7 @@ namespace Warehousely.Migrations
 
             modelBuilder.Entity("Warehousely.Models.ImageFile", b =>
                 {
-                    b.Property<int>("ImageFileId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -339,7 +341,7 @@ namespace Warehousely.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ImageFileId");
+                    b.HasKey("Id");
 
                     b.ToTable("ImageFiles");
                 });
@@ -433,7 +435,7 @@ namespace Warehousely.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ImageFileId")
+                    b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<string>("ModifiedBy")
@@ -453,7 +455,7 @@ namespace Warehousely.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("ImageFileId");
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("SizeId");
 
@@ -462,7 +464,7 @@ namespace Warehousely.Migrations
 
             modelBuilder.Entity("Warehousely.Models.Size", b =>
                 {
-                    b.Property<int>("SizeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -482,28 +484,28 @@ namespace Warehousely.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SizeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Sizes");
 
                     b.HasData(
                         new
                         {
-                            SizeId = 1,
+                            Id = 1,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "375 ml Demi"
                         },
                         new
                         {
-                            SizeId = 2,
+                            Id = 2,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "750 ml Standard"
                         },
                         new
                         {
-                            SizeId = 3,
+                            Id = 3,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "1.5 L Magnum"
@@ -592,7 +594,7 @@ namespace Warehousely.Migrations
                 {
                     b.HasOne("Warehousely.Models.ImageFile", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageFileId");
+                        .HasForeignKey("ImageId");
 
                     b.HasOne("Warehousely.Models.Size", "Size")
                         .WithMany("Products")

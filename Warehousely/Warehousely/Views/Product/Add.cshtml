@@ -39,7 +39,7 @@
             <select asp-for="Size" class="form-control">
                 @foreach (var size in Model.AllSizes)
                 {
-                    <option value="@size.Id">@size.Name</option>
+                    <option value="@size.SizeId">@size.Name</option>
                 }
             </select>
         </div>

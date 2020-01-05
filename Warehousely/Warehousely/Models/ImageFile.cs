@@ -10,7 +10,7 @@ namespace Warehousely.Models
     public class ImageFile : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int ImageFileId { get; set; }
         public string ContentDisposition { get; set; }
         public string ContentType { get; set; }
         public string FileName { get; set; }

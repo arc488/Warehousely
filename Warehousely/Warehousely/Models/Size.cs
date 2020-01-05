@@ -10,7 +10,7 @@ namespace Warehousely.Models
     public class Size : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int SizeId { get; set; }
         public string Name { get; set; }
         public List<Product> Products { get; set; }
     }

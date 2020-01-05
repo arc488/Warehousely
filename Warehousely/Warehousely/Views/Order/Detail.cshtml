@@ -1,1 +1,41 @@
 ﻿@model OrderDetailViewModel
+
+@{ 
+    var orderItems = Model.OrderItems;
+}
+
+<form>
+
+    <div class="card" style="width: 22rem;">
+        <div class="card-body">
+            <div>
+                <select readonly asp-for="Customer" class="form-control">
+                        <option value="@Model.Customer.CustomerId">@Model.Customer.Name</option>
+                </select>
+            </div>
+
+            <ul class="list-group list-group-flush">
+
+                @for (int i = 0; i < orderItems.Count(); i++)
+                {
+                    <li class="list-group-item">
+                        <div class="row justify-content-center flex-nowrap no-gutters">
+                            <div class="col-2">
+                                <input readonly class="form-control" asp-for="@orderItems[i].ProductId" />
+                            </div>
+                            <div class="col-5">
+                                <input readonly class="form-control" asp-for="@orderItems[i].Product.Name" />
+                            </div>
+                            <div class="col-2">
+                                <input readonly class="form-control" asp-for="@orderItems[i].Quantity" value="0" />
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+            <div class="form-group row justify-content-md-center">
+                <a readonly asp-controller="Order" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+    </div>
+</form>
