@@ -6,11 +6,11 @@ using Warehousely.Models;
 
 namespace Warehousely.ViewModels.OrderViewModels
 {
-    public class OrderViewModel
+    public class OrderDetailViewModel
     {
-        public int Customer { get; set; }
-
+        public int Id { get; set; }
+        public Customer Customer { get; set; }
         public List<OrderItemViewModel> OrderItems { get; set; }
-        public IEnumerable<Customer> Customers { get; set; }
+        public DateTime DeliveryDate { get; set; }
     }
 }

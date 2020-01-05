@@ -8,7 +8,7 @@ namespace Warehousely.ViewModels
 {
     public class ProductEditViewModel
     {
-        public int Id { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public int? Count { get; set; }
         public int SizeId { get; set; }

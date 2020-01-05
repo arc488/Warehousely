@@ -12,7 +12,7 @@ namespace Warehousely.Models
     public class Product : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int ProductId { get; set; }
 
         [Required(ErrorMessage = "Please enter product name")]
         [Display(Name = "Product name")]

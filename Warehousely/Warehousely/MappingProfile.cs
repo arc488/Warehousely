@@ -17,7 +17,7 @@ namespace Warehousely
             // Add as many of these lines as you need to map your objects
             CreateMap<ProductAddViewModel, Product>().ForMember(p => p.Image, cfg => cfg.Ignore())
                                                      .ForMember(p => p.Size, cfg => cfg.Ignore());
-            CreateMap<Product, ProductAddViewModel > ().ForMember(p => p.Image, cfg => cfg.Ignore())
+            CreateMap<Product, ProductAddViewModel >().ForMember(p => p.Image, cfg => cfg.Ignore())
                                                        .ForMember(p => p.Size, cfg => cfg.Ignore());
 
             CreateMap<Product, ProductDetailViewModel>();

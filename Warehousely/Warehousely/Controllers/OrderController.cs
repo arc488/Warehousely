@@ -50,10 +50,11 @@ namespace Warehousely.Controllers
             foreach (var product in products)
             {
                 var orderItem = _mapper.Map<OrderItemViewModel>(product);
+                orderItem.Product = product;
                 orderItems.Add(orderItem);
             }
 
-            var viewModel = new OrderViewModel
+            var viewModel = new OrderAddViewModel
             {
                 Customers = _customerRepository.AllCustomers.ToList(),
                 OrderItems = orderItems
@@ -64,18 +65,18 @@ namespace Warehousely.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(OrderViewModel viewModel)
+        public IActionResult Add(OrderAddViewModel viewModel)
         {
             var order = new Order { OrderItems = new List<OrderItem>() };
             var orderedProdcuts = viewModel.OrderItems.Where(c => c.Quantity != 0);
 
-            foreach (var product in orderedProdcuts)
+            foreach (var item in orderedProdcuts)
             {
                 var orderItem = new OrderItem
                 {
-                    ProductId = product.Id,
-                    Product = _productRepository.GetById(product.Id),
-                    Quantity = product.Quantity
+                    ProductId = item.ProductId,
+                    Product = _productRepository.GetById(item.ProductId),
+                    Quantity = item.Quantity
                 };
                 var createdOrder = _orderItemRepository.Create(orderItem);
                 order.OrderItems.Add(createdOrder);
@@ -86,6 +87,15 @@ namespace Warehousely.Controllers
             _orderRepository.Create(order);
 
             return RedirectToAction("List");
+        }
+
+        public IActionResult Detail(int id)
+        {
+            var viewModel = new OrderDetailViewModel
+            {
+
+            };
+            return View();
         }
     }
 }

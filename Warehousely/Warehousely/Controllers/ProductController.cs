@@ -82,7 +82,7 @@ namespace Warehousely.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ProductEditViewModel model, IFormFile file)
         {
-            if (!ModelState.IsValid) return View(_productRepository.GetById(model.Id));
+            if (!ModelState.IsValid) return RedirectToAction("Edit", routeValues: model.ProductId);
 
             var product = new Product();
 
@@ -96,7 +96,7 @@ namespace Warehousely.Controllers
             }
 
             _productRepository.UpdateProduct(product);
-            return RedirectToAction("Edit", product.Id);
+            return RedirectToAction("Edit", product.ProductId);
         }
 
         public IActionResult Add()
