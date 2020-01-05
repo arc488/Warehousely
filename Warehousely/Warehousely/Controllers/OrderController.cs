@@ -95,14 +95,33 @@ namespace Warehousely.Controllers
 
             var viewModel = _mapper.Map<OrderDetailViewModel>(order);
 
-            //foreach (var item in order.OrderItems)
-            //{
-            //    var orderViewModel = _mapper.Map<OrderItemViewModel>(item);
-            //    viewModel.OrderItems.Add(orderViewModel);
-            //};
+            return View(viewModel);
+        }
 
+        public IActionResult Edit(int id)
+        {
+            var order = _orderRepository.GetById(id);
+
+            var viewModel = _mapper.Map<OrderDetailViewModel>(order);
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(OrderDetailViewModel viewModel)
+        {
+            var order = _mapper.Map<Order>(viewModel);
+
+            foreach (var item in viewModel.OrderItems)
+            {
+                var orderItem = _mapper.Map<OrderItem>(item);
+                _orderItemRepository.Update(orderItem);
+            }
+
+            _orderRepository.Update(order);
+
+            return RedirectToAction("Detail", new { id = viewModel.OrderId });
         }
     }
 }

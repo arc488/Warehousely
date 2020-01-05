@@ -36,5 +36,11 @@ namespace Warehousely.DAL
                         .FirstOrDefault<Order>(order => order.OrderId == id);
             return order;
         }
+
+        public void Update(Order order)
+        {
+            _appDbContext.Entry(order).State = EntityState.Modified;
+            _appDbContext.SaveChanges();
+        }
     }
 }

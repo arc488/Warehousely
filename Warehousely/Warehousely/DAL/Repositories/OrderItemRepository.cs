@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,7 +37,8 @@ namespace Warehousely.DAL.Repositories
 
         public void Update(OrderItem orderItem)
         {
-            throw new NotImplementedException();
+            _appDbContext.Entry(orderItem).State = EntityState.Modified;
+            _appDbContext.SaveChanges();
         }
     }
 }

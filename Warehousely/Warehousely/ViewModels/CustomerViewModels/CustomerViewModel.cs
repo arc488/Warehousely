@@ -11,7 +11,7 @@ namespace Warehousely.ViewModels.CustomerViewModels
     {
         public bool IsReadonly { get; set; }
 
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
 
         [Required, StringLength(30)]
         public string Name { get; set; }

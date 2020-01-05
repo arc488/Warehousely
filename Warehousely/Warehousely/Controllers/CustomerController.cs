@@ -73,10 +73,10 @@ namespace Warehousely.Controllers
 
         public IActionResult Edit(int id)
         {
-            var viewModel = new CustumerViewModel();
             var customer = _customerRepository.GetById(id);
-            viewModel = _mapper.Map<CustumerViewModel>(customer);
+            var viewModel = _mapper.Map<CustumerViewModel>(customer);
             _mapper.Map(customer.Address, viewModel);
+
             viewModel.IsReadonly = false;
 
             return View(viewModel);
