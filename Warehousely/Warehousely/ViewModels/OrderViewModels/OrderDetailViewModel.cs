@@ -8,7 +8,7 @@ namespace Warehousely.ViewModels.OrderViewModels
 {
     public class OrderDetailViewModel
     {
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         public Customer Customer { get; set; }
         public List<OrderItemViewModel> OrderItems { get; set; }
         public DateTime DeliveryDate { get; set; }

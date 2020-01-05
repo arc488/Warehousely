@@ -91,11 +91,18 @@ namespace Warehousely.Controllers
 
         public IActionResult Detail(int id)
         {
-            var viewModel = new OrderDetailViewModel
-            {
+            var order = _orderRepository.GetById(id);
 
-            };
-            return View();
+            var viewModel = _mapper.Map<OrderDetailViewModel>(order);
+
+            //foreach (var item in order.OrderItems)
+            //{
+            //    var orderViewModel = _mapper.Map<OrderItemViewModel>(item);
+            //    viewModel.OrderItems.Add(orderViewModel);
+            //};
+
+
+            return View(viewModel);
         }
     }
 }

@@ -23,13 +23,17 @@ namespace Warehousely.DAL
         }
 
         public IEnumerable<Order> AllOrders => _appDbContext.Orders
-                                               .Include(o => o.OrderItems)
-                                               .Include(c => c.Customer);
+                                               .Include(order => order.OrderItems)
+                                               .Include(order => order.Customer);
 
 
         public Order GetById(int id)
         {
-            var order = _appDbContext.Orders.FirstOrDefault<Order>(o => o.OrderId == id);
+            var order = _appDbContext.Orders
+                        .Include(order => order.OrderItems)
+                            .ThenInclude(item => item.Product)
+                        .Include(order => order.Customer)
+                        .FirstOrDefault<Order>(order => order.OrderId == id);
             return order;
         }
     }

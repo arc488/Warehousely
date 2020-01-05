@@ -27,14 +27,14 @@
                                 <input readonly class="form-control" asp-for="@orderItems[i].Product.Name" />
                             </div>
                             <div class="col-2">
-                                <input readonly class="form-control" asp-for="@orderItems[i].Quantity" value="0" />
+                                <input readonly class="form-control" asp-for="@orderItems[i].Quantity" />
                             </div>
                         </div>
                     </li>
                 }
             </ul>
             <div class="form-group row justify-content-md-center">
-                <a readonly asp-controller="Order" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                <a readonly asp-controller="Order" asp-action="Edit" asp-route-id="@Model.OrderId" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>

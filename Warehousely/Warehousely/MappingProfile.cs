@@ -35,6 +35,12 @@ namespace Warehousely
 
             CreateMap<Product, OrderItemViewModel>();
             CreateMap<OrderItemViewModel, Product>();
+
+            CreateMap<OrderItemViewModel, OrderItem>();
+            CreateMap<OrderItem, OrderItemViewModel>();
+
+            CreateMap<OrderDetailViewModel, Order>();
+            CreateMap<Order, OrderDetailViewModel>();
         }
     }
 }
