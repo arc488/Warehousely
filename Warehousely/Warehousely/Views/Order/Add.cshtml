@@ -1,0 +1,43 @@
+﻿@model OrderAddViewModel
+
+@{ 
+    List<OrderItemViewModel> orderItems = Model.OrderItems;
+}
+    <form asp-controller="Order" asp-action="Add" method="post">
+
+        <div class="card" style="width: 22rem;">     
+            <div class="card-body">
+                <div>
+                    <select asp-for="Customer" class="form-control">
+                        @foreach (var customer in Model.Customers)
+                        {
+                            <option value="@customer.CustomerId">@customer.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <ul class="list-group list-group-flush">
+
+                    @for (int i = 0; i < orderItems.Count(); i++)
+                    {
+                        <li class="list-group-item">
+                            <div class="row justify-content-center flex-nowrap no-gutters">
+                                <div class="col-2">
+                                    <input readonly class="form-control" asp-for="@orderItems[i].ProductId" />
+                                </div>
+                                <div class="col-5">
+                                    <input readonly class="form-control" asp-for="@orderItems[i].Product.Name" />
+                                </div>
+                                <div class="col-2">
+                                    <input class="form-control" asp-for="@orderItems[i].Quantity" value="0" />
+                                </div>
+                            </div>
+                        </li>
+                        }
+                    </ul>
+                <div class="form-group row justify-content-md-center">
+                    <input type="submit" value="Add Order" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </form>

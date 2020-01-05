@@ -28,7 +28,7 @@ namespace Warehousely.DAL.Repositories
 
         public Address GetById(int id)
         {
-            var address = _appDbContext.Addresses.FirstOrDefault<Address>(a => a.Id == id);
+            var address = _appDbContext.Addresses.FirstOrDefault<Address>(a => a.AddressId == id);
             return address;
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Warehousely.Models;
 using Warehousely.ViewModels;
 using Warehousely.ViewModels.CustomerViewModels;
+using Warehousely.ViewModels.OrderViewModels;
 
 namespace Warehousely
 {
@@ -16,7 +17,7 @@ namespace Warehousely
             // Add as many of these lines as you need to map your objects
             CreateMap<ProductAddViewModel, Product>().ForMember(p => p.Image, cfg => cfg.Ignore())
                                                      .ForMember(p => p.Size, cfg => cfg.Ignore());
-            CreateMap<Product, ProductAddViewModel > ().ForMember(p => p.Image, cfg => cfg.Ignore())
+            CreateMap<Product, ProductAddViewModel >().ForMember(p => p.Image, cfg => cfg.Ignore())
                                                        .ForMember(p => p.Size, cfg => cfg.Ignore());
 
             CreateMap<Product, ProductDetailViewModel>();
@@ -31,6 +32,15 @@ namespace Warehousely
 
             CreateMap<CustumerViewModel, Address>();
             CreateMap<Address, CustumerViewModel>();
+
+            CreateMap<Product, OrderItemViewModel>();
+            CreateMap<OrderItemViewModel, Product>();
+
+            CreateMap<OrderItemViewModel, OrderItem>();
+            CreateMap<OrderItem, OrderItemViewModel>();
+
+            CreateMap<OrderDetailViewModel, Order>();
+            CreateMap<Order, OrderDetailViewModel>();
         }
     }
 }

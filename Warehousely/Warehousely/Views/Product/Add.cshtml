@@ -6,7 +6,7 @@
 }
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<form asp-controller="Product" asp-action="AddProduct" method="post" enctype="multipart/form-data">
+<form asp-controller="Product" asp-action="Add" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     <div class="form-group">
         <label asp-for="Name" class="col-sm-2 col-form-label"></label>
@@ -39,7 +39,7 @@
             <select asp-for="Size" class="form-control">
                 @foreach (var size in Model.AllSizes)
                 {
-                    <option value="@size.Id">@size.Name</option>
+                    <option value="@size.SizeId">@size.Name</option>
                 }
             </select>
         </div>

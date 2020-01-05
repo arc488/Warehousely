@@ -1,18 +1,18 @@
 ﻿@model ProductEditViewModel
 
 <div class="row">
-    <form asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+    <form asp-controller="Product" asp-action="Edit" asp-route-id="@Model.ProductId" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @Html.AntiForgeryToken()
         <table class="table table-striped">
             <tbody>
                 <tr>
                     <th scope="row">
-                        <label asp-for="Id" class="control-label"></label>
+                        <label asp-for="ProductId" class="control-label"></label>
                     </th>
                     <td>
-                        <input readonly asp-for="Id" class="form-control" />
-                        <span asp-validation-for="Id" class="text-danger"></span>
+                        <input readonly asp-for="ProductId" class="form-control" />
+                        <span asp-validation-for="ProductId" class="text-danger"></span>
                     </td>
                 </tr>
                 <tr>
@@ -41,14 +41,14 @@
                         <select asp-for="SizeId" class="form-control">
                             @foreach (var SizeId in Model.AllSizes)
                             {
-                                if (SizeId.Id == Model.SizeId)
+                                if (SizeId.SizeId == Model.SizeId)
                                 {
-                                    <option value="@SizeId.Id" selected>@SizeId.Name</option>
+                                    <option value="@SizeId.SizeId" selected>@SizeId.Name</option>
 
                                 }
                                 else
                                 {
-                                    <option value="@SizeId.Id">@SizeId.Name</option>
+                                    <option value="@SizeId.SizeId">@SizeId.Name</option>
 
                                 }
                             }
@@ -78,7 +78,7 @@
         </table>
         <div class="form-group">
             <input type="submit" value="Save" class="btn btn-primary" />
-            <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+            <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@Model.ProductId" class="btn btn-danger">Delete</a>
         </div>
     </form>
     </div>

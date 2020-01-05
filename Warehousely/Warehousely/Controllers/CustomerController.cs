@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Warehousely.DAL;
 using Warehousely.DAL.IRepositories;
@@ -17,14 +19,17 @@ namespace Warehousely.Controllers
         private readonly ICustomerRepository _customerRepository;
         private readonly IAddressRepository _addressRepository;
         private readonly IMapper _mapper;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public CustomerController(ICustomerRepository customerRepository,
                                   IAddressRepository addressRepository,
-                                  IMapper mapper)
+                                  IMapper mapper,
+                                  UserManager<IdentityUser> userManager)
         {
             _customerRepository = customerRepository;
             _addressRepository = addressRepository;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         public IActionResult List()

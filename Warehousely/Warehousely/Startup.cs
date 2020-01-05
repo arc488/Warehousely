@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -29,17 +30,20 @@ namespace Warehousely
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
             services.AddMvc();
+            services.AddSession();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageFileRepository, ImageFileRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
             services.AddControllersWithViews();
-            services.AddHttpContextAccessor();
 
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -68,7 +72,7 @@ namespace Warehousely
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseRouting();
             
             app.UseAuthorization();

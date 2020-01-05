@@ -29,7 +29,7 @@ namespace Warehousely.DAL
             return _appDbContext.Products
                 .Include(i => i.Image)
                 .Include(s => s.Size)
-                .FirstOrDefault<Product>(p => p.Id == id);
+                .FirstOrDefault<Product>(p => p.ProductId == id);
         }
 
         public void DeleteProduct(Product product)

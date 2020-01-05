@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 using Warehousely.Models;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 
 namespace Warehousely.DAL
 {
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public DbSet<Product> Products { get; set; }
@@ -22,8 +29,33 @@ namespace Warehousely.DAL
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
+        public override int SaveChanges()
+        {
+            var httpContext = _httpContextAccessor.HttpContext;
+            var userName = httpContext.User.Identity.Name;
 
+            var entries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is BaseEntity && (
+                        e.State == EntityState.Added
+                        || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                ((BaseEntity)entityEntry.Entity).DateModified = DateTime.Now;
+                ((BaseEntity)entityEntry.Entity).ModifiedBy = userName;
+
+                if (entityEntry.State == EntityState.Added)
+                {
+                    ((BaseEntity)entityEntry.Entity).DateCreated = DateTime.Now;
+                    ((BaseEntity)entityEntry.Entity).CreatedBy = userName;
+                }
+            }
+
+            return base.SaveChanges();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,19 +68,19 @@ namespace Warehousely.DAL
             modelBuilder.Entity<Size>()
                 .HasData(new Size
                 {
-                    Id = 1,
+                    SizeId = 1,
                     Name = "375 ml Demi"
                 });
             modelBuilder.Entity<Size>()
                 .HasData(new Size
                 {
-                    Id = 2,
+                    SizeId = 2,
                     Name = "750 ml Standard"
                 });
             modelBuilder.Entity<Size>()
                 .HasData(new Size
                 {
-                    Id = 3,
+                    SizeId = 3,
                     Name = "1.5 L Magnum"
                 });
         }

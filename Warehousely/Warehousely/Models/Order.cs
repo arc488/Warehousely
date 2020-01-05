@@ -3,17 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.DAL;
 
 namespace Warehousely.Models
 {
-    public class Order
+    public class Order : BaseEntity
     {
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         public Customer Customer { get; set; }
-        public IEnumerable<Product> Products { get; set; }
-        public IdentityUser CreatedBy { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
         public DateTime DeliveryDate { get; set; }
     }
 }

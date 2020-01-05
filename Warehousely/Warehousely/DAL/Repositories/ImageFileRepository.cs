@@ -38,7 +38,7 @@ namespace Warehousely.DAL
             _appDbContext.ImageFiles.Add(ImageFile);
             _appDbContext.SaveChanges();
 
-            return ImageFile.Id;
+            return ImageFile.ImageFileId;
         }
 
         public void DeleteImageFile(ImageFile imageFile)
@@ -50,7 +50,7 @@ namespace Warehousely.DAL
 
         public ImageFile GetById(int id)
         {
-            return _appDbContext.ImageFiles.FirstOrDefault<ImageFile>(i => i.Id == id);
+            return _appDbContext.ImageFiles.FirstOrDefault<ImageFile>(i => i.ImageFileId == id);
         }
     }
 }

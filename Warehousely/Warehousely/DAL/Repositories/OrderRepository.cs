@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,17 +16,24 @@ namespace Warehousely.DAL
             _appDbContext = appDbContext;
         }
 
-        public void CreateOrder(Order Order)
+        public void Create(Order order)
         {
-            throw new NotImplementedException();
+            _appDbContext.Orders.Add(order);
+            _appDbContext.SaveChanges();
         }
 
-        public IEnumerable<Order> AllOrders => _appDbContext.Orders;
+        public IEnumerable<Order> AllOrders => _appDbContext.Orders
+                                               .Include(order => order.OrderItems)
+                                               .Include(order => order.Customer);
 
 
         public Order GetById(int id)
         {
-            var order = _appDbContext.Orders.FirstOrDefault<Order>(o => o.Id == id);
+            var order = _appDbContext.Orders
+                        .Include(order => order.OrderItems)
+                            .ThenInclude(item => item.Product)
+                        .Include(order => order.Customer)
+                        .FirstOrDefault<Order>(order => order.OrderId == id);
             return order;
         }
     }

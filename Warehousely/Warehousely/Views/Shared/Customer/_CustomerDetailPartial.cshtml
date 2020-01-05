@@ -31,6 +31,15 @@
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </td>
         </tr>
+        <tr>
+            <th scope="row">
+                <label asp-for="DateCreated" class="control-label"></label>
+            </th>
+            <td>
+                <input readonly="@Model.IsReadonly" asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
+            </td>
+        </tr>
 
     </tbody>
 </table>

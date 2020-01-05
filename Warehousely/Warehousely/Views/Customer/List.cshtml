@@ -13,13 +13,13 @@
             @foreach (var customer in Model)
             {
             <tr>
-                <th scope="row">@customer.Id</th>
+                <th scope="row">@customer.CustomerId</th>
                 <td>@customer.Name</td>
                 @if (customer.Address != null)
                 {
                     <td>@customer.Address.Address1</td>
                 }
-                <td><a asp-controller="Customer" asp-action="Detail" asp-route-id="@customer.Id" class="btn btn-primary">Details</a></td>
+                <td><a asp-controller="Customer" asp-action="Detail" asp-route-id="@customer.CustomerId" class="btn btn-primary">Details</a></td>
             </tr>
             }
         </tbody>
