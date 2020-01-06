@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.Controllers.Helpers;
 using Warehousely.DAL;
 using Warehousely.DAL.IRepositories;
 using Warehousely.Models;
@@ -44,22 +45,23 @@ namespace Warehousely.Controllers
 
         public IActionResult Add()
         {
-            var products = _productRepository.AllProducts.ToList();
-            var orderItems = new List<OrderItemViewModel>();
+            //var products = _productRepository.AllProducts.ToList();
+            //var orderItems = new List<OrderItemViewModel>();
 
-            foreach (var product in products)
-            {
-                var orderItem = _mapper.Map<OrderItemViewModel>(product);
-                orderItem.Product = product;
-                orderItems.Add(orderItem);
-            }
+            //foreach (var product in products)
+            //{
+            //    var orderItem = _mapper.Map<OrderItemViewModel>(product);
+            //    orderItem.Product = product;
+            //    orderItems.Add(orderItem);
+            //}
 
-            var viewModel = new OrderAddViewModel
-            {
-                Customers = _customerRepository.AllCustomers.ToList(),
-                OrderItems = orderItems
-            };
+            //var viewModel = new OrderAddViewModel
+            //{
+            //    Customers = _customerRepository.AllCustomers.ToList(),
+            //    OrderItems = orderItems
+            //};
 
+            var viewModel = new OrderHelpers().GenerateViewModel(_productRepository, _customerRepository, _mapper);
             return View(viewModel);
         }
 
@@ -67,6 +69,12 @@ namespace Warehousely.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(OrderAddViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+               var model = new OrderHelpers().GenerateViewModel(_productRepository, _customerRepository, _mapper);
+               return View(model);
+            };
+
             var order = new Order { OrderItems = new List<OrderItem>() };
             var orderedProdcuts = viewModel.OrderItems.Where(c => c.Quantity != 0);
 

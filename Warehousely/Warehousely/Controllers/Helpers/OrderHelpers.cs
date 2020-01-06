@@ -1,0 +1,37 @@
+﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Warehousely.DAL;
+using Warehousely.ViewModels.OrderViewModels;
+
+namespace Warehousely.Controllers.Helpers
+{
+    public class OrderHelpers
+    {
+
+        public OrderAddViewModel GenerateViewModel(IProductRepository productRepository,
+                            ICustomerRepository customerRepository,
+                            IMapper mapper)
+        {
+            var products = productRepository.AllProducts.ToList();
+            var orderItems = new List<OrderItemViewModel>();
+
+            foreach (var product in products)
+            {
+                var orderItem = mapper.Map<OrderItemViewModel>(product);
+                orderItem.Product = product;
+                orderItems.Add(orderItem);
+            }
+
+            var viewModel = new OrderAddViewModel
+            {
+                Customers = customerRepository.AllCustomers.ToList(),
+                OrderItems = orderItems
+            };
+
+            return viewModel;
+        }
+    }
+}
