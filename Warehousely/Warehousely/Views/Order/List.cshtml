@@ -17,7 +17,7 @@
                 <th scope="row">@order.OrderId</th>
                 <td>@order.Customer.Name</td>
                 <td>@order.CreatedBy</td>
-                <td>@order.DateCreated</td>
+                <td>@order.DeliveryDate.ToShortDateString()</td>
                 <td><a class="btn btn-primary" asp-controller="Order" asp-action="Detail" asp-route-id="@order.OrderId">Detail</a></td>
             </tr>
             }

@@ -7,7 +7,7 @@ using Warehousely.DAL;
 using Warehousely.ViewModels.OrderViewModels;
 
 namespace Warehousely.Controllers.Helpers
-{
+{   
     public class OrderHelpers
     {
 
@@ -28,9 +28,10 @@ namespace Warehousely.Controllers.Helpers
             var viewModel = new OrderAddViewModel
             {
                 Customers = customerRepository.AllCustomers.ToList(),
-                OrderItems = orderItems
+                OrderItems = orderItems,
+                DeliveryDate = DateTime.Today.AddDays(1)
             };
-
+            
             return viewModel;
         }
     }

@@ -354,7 +354,7 @@ namespace Warehousely.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
@@ -421,7 +421,6 @@ namespace Warehousely.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("Count")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -440,15 +439,13 @@ namespace Warehousely.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<decimal?>("Price")
-                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("SizeId")
+                    b.Property<int?>("SizeId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
@@ -572,7 +569,9 @@ namespace Warehousely.Migrations
                 {
                     b.HasOne("Warehousely.Models.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Warehousely.Models.OrderItem", b =>
@@ -596,9 +595,7 @@ namespace Warehousely.Migrations
 
                     b.HasOne("Warehousely.Models.Size", "Size")
                         .WithMany("Products")
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SizeId");
                 });
 #pragma warning restore 612, 618
         }

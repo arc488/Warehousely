@@ -45,22 +45,6 @@ namespace Warehousely.Controllers
 
         public IActionResult Add()
         {
-            //var products = _productRepository.AllProducts.ToList();
-            //var orderItems = new List<OrderItemViewModel>();
-
-            //foreach (var product in products)
-            //{
-            //    var orderItem = _mapper.Map<OrderItemViewModel>(product);
-            //    orderItem.Product = product;
-            //    orderItems.Add(orderItem);
-            //}
-
-            //var viewModel = new OrderAddViewModel
-            //{
-            //    Customers = _customerRepository.AllCustomers.ToList(),
-            //    OrderItems = orderItems
-            //};
-
             var viewModel = new OrderHelpers().GenerateViewModel(_productRepository, _customerRepository, _mapper);
             return View(viewModel);
         }
@@ -76,7 +60,7 @@ namespace Warehousely.Controllers
             };
 
             var order = new Order { OrderItems = new List<OrderItem>() };
-            var orderedProdcuts = viewModel.OrderItems.Where(c => c.Quantity != 0);
+            var orderedProdcuts = viewModel.OrderItems;
 
             foreach (var item in orderedProdcuts)
             {
@@ -90,6 +74,7 @@ namespace Warehousely.Controllers
                 order.OrderItems.Add(createdOrder);
             }
 
+            order.DeliveryDate = viewModel.DeliveryDate;
             order.Customer = _customerRepository.GetById(viewModel.Customer);
 
             _orderRepository.Create(order);

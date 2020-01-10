@@ -46,12 +46,12 @@ namespace Warehousely.DAL
 
             foreach (var entityEntry in entries)
             {
-                ((BaseEntity)entityEntry.Entity).DateModified = DateTime.Now;
+                ((BaseEntity)entityEntry.Entity).DateModified = DateTime.Today;
                 ((BaseEntity)entityEntry.Entity).ModifiedBy = userName;
 
                 if (entityEntry.State == EntityState.Added)
                 {
-                    ((BaseEntity)entityEntry.Entity).DateCreated = DateTime.Now;
+                    ((BaseEntity)entityEntry.Entity).DateCreated = DateTime.Today;
                     ((BaseEntity)entityEntry.Entity).CreatedBy = userName;
                 }
             }

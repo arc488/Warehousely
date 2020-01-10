@@ -16,9 +16,9 @@ namespace Warehousely.ViewModels.OrderViewModels
         public Customer Customer { get; set; }
         public List<OrderItemViewModel> OrderItems { get; set; }
 
-        [Required]
         [DisplayName("Delivery Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [DateIsTodayOrFuture]
         public DateTime DeliveryDate { get; set; }
 

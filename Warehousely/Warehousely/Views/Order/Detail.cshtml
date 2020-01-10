@@ -10,8 +10,14 @@
         <div class="card-body">
             <div>
                 <select readonly asp-for="Customer" class="form-control">
-                        <option value="@Model.Customer.CustomerId">@Model.Customer.Name</option>
+                    <option value="@Model.Customer.CustomerId">@Model.Customer.Name</option>
                 </select>
+            </div>
+
+            <div class="text-center">
+                <label asp-for="DeliveryDate"></label>
+                <div class="text-danger" asp-validation-for="DeliveryDate"></div>
+                <input readonly asp-for="DeliveryDate" type="text" />
             </div>
 
             <ul class="list-group list-group-flush">

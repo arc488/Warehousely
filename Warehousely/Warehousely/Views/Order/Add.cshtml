@@ -18,11 +18,10 @@
                     </select>
                 </div>
 
-                <div>
+                <div class="text-center">
                     <label asp-for="DeliveryDate"></label>
                     <div class="text-danger" asp-validation-for="DeliveryDate"></div>
-                    <input asp-for="DeliveryDate" />
-
+                    <input asp-for="DeliveryDate" type="text" id="datepicker" />
                 </div>
 
                 <ul class="list-group list-group-flush">
