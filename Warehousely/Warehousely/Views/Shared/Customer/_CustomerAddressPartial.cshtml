@@ -11,6 +11,7 @@
             </div>
             <input asp-for="Address1" class="form-control" placeholder="Street address" />
         </div>
+        <div><span asp-validation-for="Address1" class="text-danger"></span></div>
     </div>
 
     <div class="form-group">
@@ -21,6 +22,7 @@
             </div>
             <input asp-for="Address2" class="form-control" placeholder="" />
         </div>
+        <div><span asp-validation-for="Address2" class="text-danger"></span></div>
     </div>
 
     <div class="form-group">
@@ -31,6 +33,7 @@
             </div>
             <input asp-for="City" class="form-control" placeholder="City" />
         </div>
+        <div><span asp-validation-for="City" class="text-danger"></span></div>
     </div>
 
     <div class="form-group">
@@ -41,6 +44,7 @@
             </div>
             <input asp-for="State" class="form-control" placeholder="State" />
         </div>
+        <div><span asp-validation-for="State" class="text-danger"></span></div>
     </div>
 
     <div class="form-group">
@@ -51,5 +55,6 @@
             </div>
             <input asp-for="Zip" class="form-control" placeholder="Zipcode" />
         </div>
+        <div><span asp-validation-for="Zip" class="text-danger"></span></div>
     </div>
 </div>

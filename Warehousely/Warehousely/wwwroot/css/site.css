@@ -82,3 +82,8 @@ body {
 label {
     margin-bottom: 0.1rem;
 }
+
+.text-danger{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
