@@ -1,16 +1,24 @@
 ﻿@model CustumerViewModel
 
-    <div class="container">
-        <form>
-            
-            <div class="row">
+    <script>
+        $(function () {
+            $('input').attr("readonly", true);
+        });
+    </script>
 
-                <div class="col-sm-4">
+    <div class="container">
+        <form>           
+            <div class="row">
+                <div class="col-sm-4 p-2">
                     <partial name="Customer/_CustomerDetailPartial" />
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-4 p-2">
                     <partial name="Customer/_CustomerAddressPartial" />
+                </div>
+
+                <div class="col-sm-4">
+                    <partial name="Customer/_CustomerOrdersPartial" model="@Model.Orders" />
                 </div>
             </div>
 
@@ -19,6 +27,5 @@
                     <a asp-controller="Customer" asp-action="Edit" asp-route-id="@Model.CustomerId" class="btn btn-primary">Edit</a>
                 </div>
             </div>
-
         </form>
     </div>

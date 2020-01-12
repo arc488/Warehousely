@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Order>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.ToList())
+            {
+                <tr>
+                    <th scope="row">@order.OrderId</th>
+                    <td>@order.DeliveryDate.ToShortDateString()</td>
+                    <td><a class="btn btn-primary" asp-controller="Order" asp-action="Detail" asp-route-id="@order.OrderId">Detail</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>

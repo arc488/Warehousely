@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using Warehousely.ViewModels.OrderViewModels;
 
 namespace Warehousely.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
@@ -87,6 +89,7 @@ namespace Warehousely.Controllers
             var order = _orderRepository.GetById(id);
 
             var viewModel = _mapper.Map<OrderDetailViewModel>(order);
+            
 
             return View(viewModel);
         }

@@ -2,44 +2,34 @@
 
 <input hidden readonly asp-for="CustomerId" class="form-control" />
 
-<table class="table table-striped">
-    <tbody>
-        <tr>
-            <th scope="row">
-                <label asp-for="Name" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <label asp-for="Email" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <label asp-for="Phone" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <label asp-for="DateCreated" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </td>
-        </tr>
+<div class="container">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-user"></i>
+            </div>
+            <input asp-for="Name" class="form-control" placeholder="Name" />
+        </div>
+    </div>
 
-    </tbody>
-</table>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-envelope"></i>
+            </div>
+            <input asp-for="Email" class="form-control" placeholder="Email" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-phone"></i>
+            </div>
+            <input asp-for="Phone" class="form-control" placeholder="Ex: 000-000-0000" />
+        </div>
+    </div>
+</div>

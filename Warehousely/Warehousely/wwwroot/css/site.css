@@ -69,3 +69,16 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.input-group-text {
+    display: block;
+    width: 50px;
+}
+
+.form-group {
+    margin-bottom: 0.2rem;
+}
+
+label {
+    margin-bottom: 0.1rem;
+}

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Warehousely.DAL;
@@ -14,22 +15,23 @@ using Warehousely.ViewModels.CustomerViewModels;
 
 namespace Warehousely.Controllers
 {
+    [Authorize]
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IAddressRepository _addressRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        private readonly UserManager<IdentityUser> _userManager;
 
         public CustomerController(ICustomerRepository customerRepository,
                                   IAddressRepository addressRepository,
-                                  IMapper mapper,
-                                  UserManager<IdentityUser> userManager)
+                                  IOrderRepository orderRepository,
+                                  IMapper mapper)
         {
             _customerRepository = customerRepository;
             _addressRepository = addressRepository;
+            _orderRepository = orderRepository;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
         public IActionResult List()
@@ -63,10 +65,14 @@ namespace Warehousely.Controllers
         public IActionResult Detail(int id)
         {
             var viewModel = new CustumerViewModel();
+            viewModel.IsReadonly = true;
+
             var customer = _customerRepository.GetById(id);
             viewModel = _mapper.Map<CustumerViewModel>(customer);
             _mapper.Map(customer.Address, viewModel);
-            viewModel.IsReadonly = true;
+
+            viewModel.Orders = _orderRepository.AllOrders.
+                              Where(order => order.Customer.CustomerId == id).ToList();
 
             return View(viewModel);
         }

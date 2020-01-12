@@ -2,53 +2,56 @@
 
 <input readonly hidden asp-for="AddressId" class="form-control" />
 
-<table class="table table-striped">
-    <tbody>
+<div class="container">
 
-        <tr>
-            <th scope="row">
-                <label asp-for="Address1" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="Address1" class="form-control" />
-                <span asp-validation-for="Address1" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <label asp-for="Address2" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="Address2" class="form-control" />
-                <span asp-validation-for="Address2" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <label asp-for="City" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <label asp-for="State" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="State" class="form-control" />
-                <span asp-validation-for="State" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <label asp-for="Zip" class="control-label"></label>
-            </th>
-            <td>
-                <input readonly="@Model.IsReadonly" asp-for="Zip" class="form-control" />
-                <span asp-validation-for="Zip" class="text-danger"></span>
-            </td>
-        </tr>
-    </tbody>
-</table>
+    <div class="form-group">
+        <label asp-for="Address1"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-address-book"></i>
+            </div>
+            <input asp-for="Address1" class="form-control" placeholder="Street address" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address2"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-address-book"></i>
+            </div>
+            <input asp-for="Address2" class="form-control" placeholder="" />
+        </div>
+    </div>
+
+    <div class="form-group"> 
+        <label asp-for="City"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-address-book"></i>
+            </div>
+            <input asp-for="City" class="form-control" placeholder="City" />
+        </div>
+    </div>
+
+    <div class="form-group"> 
+        <label asp-for="State"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-address-book"></i>
+            </div>
+            <input asp-for="State" class="form-control" placeholder="State" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Zip"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-address-book"></i>
+            </div>
+            <input asp-for="Zip" class="form-control" placeholder="Zipcode" />
+        </div>
+    </div>
+
+</div>
