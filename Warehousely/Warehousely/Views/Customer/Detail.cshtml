@@ -1,31 +1,25 @@
 ﻿@model CustumerViewModel
 
-    <script>
-        $(function () {
-            $('input').attr("readonly", true);
-        });
-    </script>
+<script>
+    $(function () {
+        $('input').attr("readonly", true);
+    });
+</script>
 
-    <div class="container">
-        <form>           
-            <div class="row">
-                <div class="col-sm-4 p-2">
-                    <partial name="Customer/_CustomerDetailPartial" />
-                </div>
+<div class="container">
+    <form>
+        <div class="row">
+            <partial name="Customer/_CustomerDetailPartial" />
+            <partial name="Customer/_CustomerAddressPartial" />
+            <partial name="Customer/_CustomerOrdersPartial" model="@Model.Orders" />
+        </div>
 
-                <div class="col-sm-4 p-2">
-                    <partial name="Customer/_CustomerAddressPartial" />
-                </div>
-
-                <div class="col-sm-4">
-                    <partial name="Customer/_CustomerOrdersPartial" model="@Model.Orders" />
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group">
+        <div class="row">
+            <div class="col-md-8 p-2 border">
+                <div class="form-group text-center">
                     <a asp-controller="Customer" asp-action="Edit" asp-route-id="@Model.CustomerId" class="btn btn-primary">Edit</a>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
