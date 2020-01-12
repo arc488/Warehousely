@@ -47,7 +47,7 @@ namespace Warehousely.Controllers
 
         public IActionResult Add()
         {
-            var viewModel = new OrderHelpers().GenerateViewModel(_productRepository, _customerRepository, _mapper);
+            var viewModel = GenerateModel();
             return View(viewModel);
         }
 
@@ -57,8 +57,7 @@ namespace Warehousely.Controllers
         {
             if (!ModelState.IsValid)
             {
-               var model = new OrderHelpers().GenerateViewModel(_productRepository, _customerRepository, _mapper);
-               return View(model);
+               return View(GenerateModel());
             };
 
             var order = new Order { OrderItems = new List<OrderItem>() };
@@ -118,6 +117,12 @@ namespace Warehousely.Controllers
             _orderRepository.Update(order);
 
             return RedirectToAction("Detail", new { id = viewModel.OrderId });
+        }
+
+        public OrderAddViewModel GenerateModel()
+        {
+            var viewModel = new OrderHelpers().GenerateViewModel(_productRepository, _customerRepository, _mapper);
+            return viewModel;
         }
     }
 }
