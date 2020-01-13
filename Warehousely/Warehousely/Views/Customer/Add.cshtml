@@ -7,14 +7,16 @@
 
 <div class="container">
     <form asp-controller="Customer" asp-action="Add" method="post" enctype="multipart/form-data">
-        @Html.AntiForgeryToken()
         <div class="row">
             <partial name="Customer/_CustomerDetailPartial" />
             <partial name="Customer/_CustomerAddressPartial" />
         </div>
-
-        <div class="col-sm-10">
-            <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+        <div class="row">
+            <div class="col-md-8 p-2 border">
+                <div class="form-group text-center">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+            </div>
         </div>
     </form>
 </div>

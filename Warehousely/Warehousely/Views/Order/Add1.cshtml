@@ -1,20 +1,20 @@
-﻿@model OrderDetailViewModel
+﻿@model OrderAddViewModel
 
-@{
-    var orderItems = Model.OrderItems;
+@{ 
+    List<OrderItemViewModel> orderItems = Model.OrderItems;
 }
+    <form asp-controller="Order" asp-action="Add" method="post">
 
-    <form asp-controller="Order" asp-action="Edit" method="post">
-        <input hidden asp-for="@Model.OrderId" />
-        <input hidden asp-for="@Model.CreatedBy" />
-        <input hidden asp-for="@Model.DateCreated" />
-
-
-        <div class="card" style="width: 22rem;">
+        <div class="card" style="width: 22rem;">     
             <div class="card-body">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
                 <div>
-                    <select readonly asp-for="Customer" class="form-control">
-                        <option value="@Model.Customer.CustomerId">@Model.Customer.Name</option>
+                    <select asp-for="Customer" class="form-control">
+                        @foreach (var customer in Model.Customers)
+                        {
+                            <option value="@customer.CustomerId">@customer.Name</option>
+                        }
                     </select>
                 </div>
 
@@ -30,7 +30,6 @@
                     {
                         <li class="list-group-item">
                             <div class="row justify-content-center flex-nowrap no-gutters">
-                                <input asp-for="@orderItems[i].OrderItemId" hidden />
                                 <div class="col-2">
                                     <input readonly class="form-control" asp-for="@orderItems[i].ProductId" />
                                 </div>
@@ -38,14 +37,14 @@
                                     <input readonly class="form-control" asp-for="@orderItems[i].Product.Name" />
                                 </div>
                                 <div class="col-2">
-                                    <input class="form-control" asp-for="@orderItems[i].Quantity" />
+                                    <input onkeypress="return ValidNumeric()" class="form-control" asp-for="@orderItems[i].Quantity" value="0" />
                                 </div>
                             </div>
                         </li>
                     }
                 </ul>
                 <div class="form-group row justify-content-md-center">
-                    <input type="submit" value="Save" />
+                    <input type="submit" value="Add Order" class="btn btn-primary" />
                 </div>
             </div>
         </div>

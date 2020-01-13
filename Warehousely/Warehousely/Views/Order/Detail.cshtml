@@ -33,7 +33,7 @@
                                 <input readonly class="form-control" asp-for="@orderItems[i].Product.Name" />
                             </div>
                             <div class="col-2">
-                                <input readonly class="form-control" asp-for="@orderItems[i].Quantity" />
+                                <input onkeypress="return ValidNumeric()" class="form-control" asp-for="@orderItems[i].Quantity" />
                             </div>
                         </div>
                     </li>

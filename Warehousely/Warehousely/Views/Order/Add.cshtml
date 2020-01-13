@@ -1,51 +1,56 @@
 ﻿@model OrderAddViewModel
 
-@{ 
+@{
     List<OrderItemViewModel> orderItems = Model.OrderItems;
 }
-    <form asp-controller="Order" asp-action="Add" method="post">
+<form asp-controller="Order" asp-action="Add" method="post">
 
-        <div class="card" style="width: 22rem;">     
-            <div class="card-body">
-                <div asp-validation-summary="All" class="text-danger"></div>
-
-                <div>
-                    <select asp-for="Customer" class="form-control">
-                        @foreach (var customer in Model.Customers)
-                        {
-                            <option value="@customer.CustomerId">@customer.Name</option>
-                        }
-                    </select>
+    <div class="col-md-4 p-2 border">
+        <div class="form-group">
+            <label asp-for="Customer"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <i class="input-group-text fa fa-user"></i>
                 </div>
-
-                <div class="text-center">
-                    <label asp-for="DeliveryDate"></label>
-                    <div class="text-danger" asp-validation-for="DeliveryDate"></div>
-                    <input asp-for="DeliveryDate" type="text" id="datepicker" />
-                </div>
-
-                <ul class="list-group list-group-flush">
-
-                    @for (int i = 0; i < orderItems.Count(); i++)
+                <select asp-for="Customer" class="form-control">
+                    @foreach (var customer in Model.Customers)
                     {
-                        <li class="list-group-item">
-                            <div class="row justify-content-center flex-nowrap no-gutters">
-                                <div class="col-2">
-                                    <input readonly class="form-control" asp-for="@orderItems[i].ProductId" />
-                                </div>
-                                <div class="col-5">
-                                    <input readonly class="form-control" asp-for="@orderItems[i].Product.Name" />
-                                </div>
-                                <div class="col-2">
-                                    <input onkeypress="return ValidNumeric()" class="form-control" asp-for="@orderItems[i].Quantity" value="0" />
-                                </div>
-                            </div>
-                        </li>
+                        <option value="@customer.CustomerId">@customer.Name</option>
                     }
-                </ul>
-                <div class="form-group row justify-content-md-center">
-                    <input type="submit" value="Add Order" class="btn btn-primary" />
-                </div>
+                </select>
             </div>
+            <div><span asp-validation-for="Customer" class="text-danger"></span></div>
         </div>
-    </form>
+
+
+        <div class="form-group">
+            <label asp-for="DeliveryDate"></label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <i class="input-group-text fa fa-truck"></i>
+                </div>
+                <input asp-for="DeliveryDate" class="form-control" type="text" id="datepicker" />
+            </div>
+            <div><span asp-validation-for="DeliveryDate" class="text-danger"></span></div>
+        </div>
+
+        <label>Products</label>
+        <div class="form-group justify-content-center border p-2">
+            @for (int i = 0; i < orderItems.Count(); i++)
+            {
+                <div class="input-group">
+                    <div class="row no-gutters">
+                        <div class="col-3"><input asp-for="OrderItems[i].ProductId" class="form-control text-center" readonly /></div>
+                        <div class="col-6"><input asp-for="OrderItems[i].Product.Name" class="form-control text-center" readonly /></div>
+                        <div class="col-3"><input onkeypress="return ValidNumeric()" asp-for="OrderItems[i].Quantity" class="form-control text-center" value="0" /></div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="form-group text-center pt-2">
+            <input type="submit" value="Add Order" class="btn btn-primary" />
+        </div>
+
+    </div>
+</form>
