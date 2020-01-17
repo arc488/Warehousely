@@ -36,7 +36,8 @@
 
             <ul class="list-unstyled components">
                 <li class="active">
-                    <a asp-controller="Home" asp-action="Index" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <partial name="_LoginPartial" />
+                    <a asp-controller="Home" asp-action="Index" data-toggle="collapse" aria-expanded="false">
                         <i class="fa fa-home"></i>
                         Home
                     </a>
@@ -79,9 +80,7 @@
                         <i class="navbar-toggler-icon"></i>
                     </button>
                 </div>
-                <ul class="navbar-nav flex-grow-1">
-                    <partial name="_LoginPartial" />
-                </ul>
+
             </nav>
             <main role="main" class="pb-3">
                 @RenderBody()
