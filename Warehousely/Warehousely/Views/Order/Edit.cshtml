@@ -6,6 +6,7 @@
 
 
     <form asp-controller="Order" asp-action="Edit" method="post">
+
         <input hidden asp-for="@Model.OrderId" />
         <input hidden asp-for="@Model.CreatedBy" />
         <input hidden asp-for="@Model.DateCreated" />
@@ -42,6 +43,7 @@
             {
                 <div class="input-group">
                     <div class="row no-gutters">
+                        <input asp-for="@orderItems[i].OrderItemId" hidden />
                         <div class="col-3"><input asp-for="OrderItems[i].ProductId" class="form-control text-center" readonly /></div>
                         <div class="col-6"><input asp-for="OrderItems[i].Product.Name" class="form-control text-center" readonly /></div>
                         <div class="col-3"><input onkeypress="return ValidNumeric()" asp-for="OrderItems[i].Quantity" class="form-control text-center" /></div>
