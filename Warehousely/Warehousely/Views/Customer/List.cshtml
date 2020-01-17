@@ -6,21 +6,21 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Address</th>
-                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var customer in Model)
             {
-            <tr>
-                <th scope="row">@customer.CustomerId</th>
-                <td>@customer.Name</td>
-                @if (customer.Address != null)
-                {
-                    <td>@customer.Address.Address1</td>
-                }
-                <td><a asp-controller="Customer" asp-action="Detail" asp-route-id="@customer.CustomerId" class="btn btn-primary">Details</a></td>
-            </tr>
+                <tr onmouseover="ChangeColor(this, true);"
+                    onmouseout="ChangeColor(this, false);"
+                    onclick="DoNav('/Customer/Detail/@customer.CustomerId');">
+                    <th scope="row">@customer.CustomerId</th>
+                    <td>@customer.Name</td>
+                    @if (customer.Address != null)
+                    {
+                        <td>@customer.Address.Address1</td>
+                    }
+                </tr>
             }
         </tbody>
     </table>

@@ -5,24 +5,22 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Product name</th>
+            <th scope="col">Product</th>
             <th scope="col">Price</th>
             <th scope="col">Size</th>
-            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var product in Model)
-    {
-
- 
-        <tr>
-            <th scope="row">@product.ProductId</th>
-            <td>@product.Name</td>
-            <td>@product.Price</td>
-            <td>@product.Size</td>
-            <td><a asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId" class="btn btn-primary">Details</a></td>
-        </tr>
-    }
+        @foreach (var product in Model)
+        {
+            <tr onmouseover="ChangeColor(this, true);"
+                onmouseout="ChangeColor(this, false);"
+                onclick="DoNav('/Product/Detail/@product.ProductId');">
+                <th scope="row">@product.ProductId</th>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Size</td>
+            </tr>
+        }
     </tbody>
 </table>

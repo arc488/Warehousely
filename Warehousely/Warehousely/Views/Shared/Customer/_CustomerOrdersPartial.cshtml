@@ -5,16 +5,16 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Delivery Date</th>
-                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var order in Model.ToList())
                 {
-                    <tr>
+                    <tr onmouseover="ChangeColor(this, true);"
+                        onmouseout="ChangeColor(this, false);"
+                        onclick="DoNav('/Product/Detail/@product.ProductId');">
                         <th scope="row">@order.OrderId</th>
                         <td>@order.DeliveryDate.ToShortDateString()</td>
-                        <td><a class="btn btn-primary" asp-controller="Order" asp-action="Detail" asp-route-id="@order.OrderId">Detail</a></td>
                     </tr>
                 }
             </tbody>
