@@ -1,59 +1,75 @@
 ﻿@model ProductAddViewModel
 
-@if (!String.IsNullOrEmpty(ViewBag.Message))
-{
-    <div class="p-3 mb-2 bg-success text-white">@ViewBag.Message</div>
-}
-<div asp-validation-summary="All" class="text-danger"></div>
+    <form asp-controller="Product" asp-action="Add" method="post" enctype="multipart/form-data">
 
-<form asp-controller="Product" asp-action="Add" method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken()
-    <div class="form-group">
-        <label asp-for="Name" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-4"><span asp-validation-for="Name" class="text-danger"></span></div>
-        <div class="col-sm-10">
-            <input asp-for="Name" />
+        <input hidden readonly asp-for="@Model.ProductId" class="form-control" />
+
+        <div class="col-md-4 p-2 border">
+
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <i class="input-group-text fa fa-glass"></i>
+                    </div>
+                    <input asp-for="Name" class="form-control" placeholder="Name" />
+                </div>
+                <div><span asp-validation-for="Name" class="text-danger"></span></div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Count"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <i class="input-group-text fa fa-tasks"></i>
+                    </div>
+                    <input asp-for="Count" class="form-control" placeholder="Count" />
+                </div>
+                <div><span asp-validation-for="Count" class="text-danger"></span></div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Size"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <i class="input-group-text fa fa-balance-scale"></i>
+                    </div>
+                    <select asp-for="Size" class="form-control">
+                        @foreach (var Size in Model.AllSizes)
+                        {
+                            <option value="@Size.SizeId">@Size.Name</option>
+                        }
+                    </select>
+                </div>
+                <div><span asp-validation-for="Size" class="text-danger"></span></div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <i class="input-group-text fa fa-usd"></i>
+                    </div>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <div><span asp-validation-for="Price" class="text-danger"></span></div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <i class="input-group-text fa fa-usd"></i>
+                    </div>
+                    <input type="file" name="file" asp-for="Image" class="form-control" />
+                </div>
+                <div><span asp-validation-for="Image" class="text-danger"></span></div>
+            </div>
+
+            <div class="col p-2 border">
+                <div class="form-group text-center">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Count" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-4"><span asp-validation-for="Count" class="text-danger"></span></div>
-        <div class="col-sm-10">
-            <input asp-for="Count" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Price" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-4"><span asp-validation-for="Price" class="text-danger"></span></div>
-        <div class="col-sm-10">
-            <input asp-for="Price" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Size" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-4"><span asp-validation-for="Size" class="text-danger"></span></div>
-        <div class="col-sm-10">
-            <select asp-for="Size" class="form-control">
-                @foreach (var size in Model.AllSizes)
-                {
-                    <option value="@size.SizeId">@size.Name</option>
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Image" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-4"><span asp-validation-for="Image" class="text-danger"></span></div>
-        <div class="col-sm-10">
-            <input type="file" name="file" />
-        </div>
-    </div>
-
-    <div class="col-sm-10">
-        <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
-    </div>
-</form>
+    </form>

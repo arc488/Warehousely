@@ -1,18 +1,15 @@
 ﻿@model ProductDetailViewModel
 
-
-<script>
-    $(function () {
-        $('input').attr("readonly", true);
-    });
-</script>
-
 <input hidden readonly asp-for="@Model.ProductId" class="form-control" />
-
 
 <div class="col-md-4 p-2 border">
 
-    <partial name="Product/_ProductImagePartial" model="@Model.ImageContent"></partial>
+    @*public int ProductId { get; set; }
+        public string Name { get; set; }
+        public int? Count { get; set; }
+        public string SizeName { get; set; }
+        public decimal? Price { get; set; }
+        public byte[] ImageContent { get; set; }*@
 
     <div class="form-group">
         <label asp-for="Name"></label>
@@ -58,9 +55,14 @@
         <div><span asp-validation-for="Price" class="text-danger"></span></div>
     </div>
 
-    <div class="p-2 border">
-        <div class="form-group text-center">
-            <a asp-controller="Product" asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-primary">Edit</a>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <i class="input-group-text fa fa-usd"></i>
+            </div>
+            <input asp-for="Price" class="form-control" />
         </div>
+        <div><span asp-validation-for="Price" class="text-danger"></span></div>
     </div>
 </div>

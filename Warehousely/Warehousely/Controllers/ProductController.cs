@@ -115,16 +115,19 @@ namespace Warehousely.Controllers
                 return View();
             }
 
-            var imageFileId = _imageFileRepository.CreateImage(file);
             var product = _mapper.Map<Product>(model);
 
-            product.Size = _sizeRepository.GetById(model.Size);
-            product.Image = _imageFileRepository.GetById(imageFileId);
+            if (file != null)
+            {
+               var imageFileId = _imageFileRepository.CreateImage(file);
+               product.Image = _imageFileRepository.GetById(imageFileId);
+            };
 
+            product.Size = _sizeRepository.GetById(model.Size);
 
             _productRepository.CreateProduct(product);
             ViewBag.Message = "Product Added Successfully";
-            return RedirectToAction("Add");
+            return RedirectToAction("List");
         }
 
     }

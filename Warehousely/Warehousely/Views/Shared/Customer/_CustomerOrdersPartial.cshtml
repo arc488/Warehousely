@@ -12,7 +12,7 @@
                 {
                     <tr onmouseover="ChangeColor(this, true);"
                         onmouseout="ChangeColor(this, false);"
-                        onclick="DoNav('/Product/Detail/@product.ProductId');">
+                        onclick="DoNav('/Product/Detail/@order.OrderId');">
                         <th scope="row">@order.OrderId</th>
                         <td>@order.DeliveryDate.ToShortDateString()</td>
                     </tr>

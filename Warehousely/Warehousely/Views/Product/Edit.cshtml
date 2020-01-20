@@ -1,17 +1,87 @@
 ﻿@model ProductEditViewModel
 
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-        <div class="col-md-4">
-            <partial name="_ProductImagePartial" model="@Model.ImageContent"></partial>
+<form asp-controller="Product" asp-action="Edit" asp-route-id="@Model.ProductId" method="post" enctype="multipart/form-data">
 
+    <input hidden readonly asp-for="@Model.ProductId" class="form-control" />
+
+    <div class="col-md-4 p-2 border">
+
+        <partial name="Product/_ProductImagePartial" model="@Model.ImageContent"></partial>
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <i class="input-group-text fa fa-glass"></i>
+                </div>
+                <input asp-for="Name" class="form-control" placeholder="Name" />
+            </div>
+            <div><span asp-validation-for="Name" class="text-danger"></span></div>
         </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <partial name="_ProductEditPartial"></partial>
+
+        <div class="form-group">
+            <label asp-for="Count"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <i class="input-group-text fa fa-tasks"></i>
+                </div>
+                <input asp-for="Count" class="form-control" placeholder="Count" />
+            </div>
+            <div><span asp-validation-for="Count" class="text-danger"></span></div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SizeId"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <i class="input-group-text fa fa-balance-scale"></i>
+                </div>
+                <select asp-for="SizeId" class="form-control">
+                    @foreach (var SizeId in Model.AllSizes)
+                    {
+                        if (SizeId.SizeId == Model.SizeId)
+                        {
+                            <option value="@SizeId.SizeId" selected>@SizeId.Name</option>
+
+                        }
+                        else
+                        {
+                            <option value="@SizeId.SizeId">@SizeId.Name</option>
+
+                        }
+                    }
+                </select>
+            </div>
+            <div><span asp-validation-for="SizeId" class="text-danger"></span></div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <i class="input-group-text fa fa-usd"></i>
+                </div>
+                <input asp-for="Price" class="form-control" />
+            </div>
+            <div><span asp-validation-for="Price" class="text-danger"></span></div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ImageContent"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <i class="input-group-text fa fa-usd"></i>
+                </div>
+                <input type="file" name="file" asp-for="ImageContent" class="form-control" />
+            </div>
+            <div><span asp-validation-for="ImageContent" class="text-danger"></span></div>
+        </div>
+
+        <div class="p-2 border">
+            <div class="form-group text-center">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-controller="Product" asp-action="Delete" asp-route-id="@Model.ProductId" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
-    
-</div>
-
+</form>

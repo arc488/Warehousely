@@ -20,15 +20,15 @@ namespace Warehousely.Models
         public string Name { get; set; }
 
         [Display(Name = "Count")]
-        //[Required(ErrorMessage = "Please enter product amount")]
+        [Required(ErrorMessage = "Please enter product amount")]
         [Range(0, 99, ErrorMessage = "Amount has to be 0-99")]
         public int? Count { get; set; }
 
-        //[Required(ErrorMessage = "Please select product size")]
+        [Required(ErrorMessage = "Please select product size")]
         [Display(Name = "Size")]
         public Size Size { get; set; }
 
-        //[Required(ErrorMessage = "Please enter product price")]
+        [Required(ErrorMessage = "Please enter product price")]
         [Display(Name = "Price")]
         public decimal? Price { get; set; }
        

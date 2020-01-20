@@ -54,7 +54,8 @@ namespace Warehousely.DAL
             _appDbContext.SaveChanges();
         }
 
-        public IEnumerable<Product> AllProducts => _appDbContext.Products;
+        public IEnumerable<Product> AllProducts => _appDbContext.Products
+                                                   .Include(p => p.Size);
 
     }
 }
