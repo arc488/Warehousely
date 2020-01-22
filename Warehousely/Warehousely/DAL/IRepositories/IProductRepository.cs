@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.DAL.IRepositories;
 using Warehousely.Models;
 
 namespace Warehousely.DAL
 {
-    public interface IProductRepository
+    public interface IProductRepository : IRepository<Product>
     {
-        void CreateProduct(Product product);
-        Product GetById(int id);
-        IEnumerable<Product> AllProducts { get; }
-        void DeleteProduct(Product product);
-        void UpdateProduct(Product product);
-        void RemoveAll();
+
     }
 }

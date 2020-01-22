@@ -39,7 +39,7 @@ namespace Warehousely.Controllers
 
         public IActionResult List()
         {
-            var products = _productRepository.AllProducts;
+            var products = _productRepository.GetAll();
 
             return View(products);
         }
@@ -50,8 +50,7 @@ namespace Warehousely.Controllers
 
             if (product == null) return NotFound();
 
-            var viewModel = new ProductDetailViewModel();
-            viewModel = _mapper.Map<ProductDetailViewModel>(product);
+            var viewModel = _mapper.Map<ProductDetailViewModel>(product);
 
             return View(viewModel);
         }
@@ -61,8 +60,7 @@ namespace Warehousely.Controllers
         {
             var product = _productRepository.GetById(id);
             if (product.Image != null) _imageFileRepository.DeleteImageFile(product.Image);
-            if (product != null) _productRepository.DeleteProduct(product);
-            ViewBag.Message = "Product deleted successfully";
+            if (product != null) _productRepository.Delete(product);
             return RedirectToAction("List");
         }
 
@@ -95,7 +93,7 @@ namespace Warehousely.Controllers
                 product.Image = _imageFileRepository.GetById(imageFileId);
             }
 
-            _productRepository.UpdateProduct(product);
+            _productRepository.Update(product);
             return RedirectToAction("Edit", product.ProductId);
         }
 
@@ -125,7 +123,7 @@ namespace Warehousely.Controllers
 
             product.Size = _sizeRepository.GetById(model.Size);
 
-            _productRepository.CreateProduct(product);
+            _productRepository.Add(product);
             ViewBag.Message = "Product Added Successfully";
             return RedirectToAction("List");
         }

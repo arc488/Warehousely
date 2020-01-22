@@ -15,7 +15,7 @@ namespace Warehousely.Controllers.Helpers
                             ICustomerRepository customerRepository,
                             IMapper mapper)
         {
-            var products = productRepository.AllProducts.ToList();
+            var products = productRepository.GetAll();
             var orderItems = new List<OrderItemViewModel>();
 
             foreach (var product in products)

@@ -4,58 +4,30 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.DAL.Repositories;
 using Warehousely.Models;
 
 namespace Warehousely.DAL
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository 
     {
-        private readonly AppDbContext _appDbContext;
-
-        public ProductRepository(AppDbContext appDbContext)
+        public ProductRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            _appDbContext = appDbContext;
             
         }
 
-        public void CreateProduct(Product product)
-        {
-            _appDbContext.Products.Add(product);
-            _appDbContext.SaveChanges();
-        }
-
-        public Product GetById(int id)
+        public override IEnumerable<Product> GetAll()
         {
             return _appDbContext.Products
-                .Include(i => i.Image)
-                .Include(s => s.Size)
-                .FirstOrDefault<Product>(p => p.ProductId == id);
+                   .Include(p => p.Size);
         }
 
-        public void DeleteProduct(Product product)
+        public override Product GetById(int id)
         {
-            _appDbContext.Products.Remove(product);
-            _appDbContext.SaveChanges();
-
+            return _appDbContext.Products
+                   .Include(p => p.Size)
+                   .Include(p => p.Image)
+                   .First(p => p.ProductId == id);
         }
-
-        public void UpdateProduct(Product product)
-        {
-            _appDbContext.Entry(product).State = EntityState.Modified;
-            _appDbContext.SaveChanges();
-        }
-
-        public void RemoveAll()
-        {
-            foreach (var entry in _appDbContext.Products)
-            {
-                _appDbContext.Products.Remove(entry);
-            }
-            _appDbContext.SaveChanges();
-        }
-
-        public IEnumerable<Product> AllProducts => _appDbContext.Products
-                                                   .Include(p => p.Size);
-
     }
 }
