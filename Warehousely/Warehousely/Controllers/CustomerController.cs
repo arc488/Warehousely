@@ -67,14 +67,10 @@ namespace Warehousely.Controllers
 
         public IActionResult Detail(int id)
         {
-            var viewModel = new CustumerViewModel();
-            viewModel.IsReadonly = true;
-
             var customer = _customerRepository.GetById(id);
 
-            viewModel = _mapper.Map<CustumerViewModel>(customer);
-            _mapper.Map(customer.Address, viewModel);
-
+            var viewModel = _mapper.Map<CustumerViewModel>(customer);
+            viewModel.IsReadonly = true;
             viewModel.Orders = _orderRepository.GetAll()
                               .Where(order => order.Customer.CustomerId == id)
                               .ToList();
@@ -106,7 +102,9 @@ namespace Warehousely.Controllers
         }
 
         public CustumerViewModel GenerateModel(int id) {
-            var viewModel = new CustomerHelpers().GenerateCustomerViewModel(_mapper, _customerRepository, id);
+            var viewModel = new CustomerHelpers()
+                            .GenerateCustomerViewModel
+                            (_mapper, _customerRepository, id);
             return viewModel;
         }
     }
