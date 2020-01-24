@@ -37,7 +37,7 @@ namespace Warehousely.Controllers
 
         public IActionResult List()
         {
-            var customers = _customerRepository.AllCustomers;
+            var customers = _customerRepository.GetAll();
             return View(customers);
         }
 
@@ -60,7 +60,7 @@ namespace Warehousely.Controllers
             var addressEntry = _addressRepository.CreateAddress(address);
             if (addressEntry != null) customer.Address = addressEntry;
 
-            _customerRepository.CreateCustomer(customer);
+            _customerRepository.Add(customer);
 
             return RedirectToAction("List");
         }
@@ -75,7 +75,7 @@ namespace Warehousely.Controllers
             viewModel = _mapper.Map<CustumerViewModel>(customer);
             _mapper.Map(customer.Address, viewModel);
 
-            viewModel.Orders = _orderRepository.AllOrders
+            viewModel.Orders = _orderRepository.GetAll()
                               .Where(order => order.Customer.CustomerId == id)
                               .ToList();
 
@@ -99,7 +99,7 @@ namespace Warehousely.Controllers
             var customer = _mapper.Map<Customer>(model);
             var address = _mapper.Map<Address>(model);
 
-            _customerRepository.UpdateCustomer(customer);
+            _customerRepository.Update(customer);
             _addressRepository.UpdateAddress(address);
 
             return RedirectToAction("List");

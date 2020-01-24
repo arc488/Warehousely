@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.DAL.IRepositories;
 using Warehousely.Models;
 
 namespace Warehousely.DAL
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IRepository<Order>
     {
-        IEnumerable<Order> AllOrders { get; } 
-        Order GetById(int id);
-        void Create(Order order);
-        void Update(Order order);
     }
 }

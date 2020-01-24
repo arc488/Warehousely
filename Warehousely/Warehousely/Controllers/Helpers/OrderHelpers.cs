@@ -27,7 +27,7 @@ namespace Warehousely.Controllers.Helpers
 
             var viewModel = new OrderAddViewModel
             {
-                Customers = customerRepository.AllCustomers.ToList(),
+                Customers = customerRepository.GetAll().ToList(),
                 OrderItems = orderItems,
                 DeliveryDate = DateTime.Today.AddDays(1)
             };

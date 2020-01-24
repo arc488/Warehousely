@@ -18,16 +18,20 @@ namespace Warehousely.DAL
 
         public override IEnumerable<Product> GetAll()
         {
-            return _appDbContext.Products
-                   .Include(p => p.Size);
+            var entries = _appDbContext.Products
+                           .Include(p => p.Size);
+
+            return entries;
         }
 
         public override Product GetById(int id)
         {
-            return _appDbContext.Products
-                   .Include(p => p.Size)
-                   .Include(p => p.Image)
-                   .First(p => p.ProductId == id);
+            Product entry = _appDbContext.Products
+                             .Include(p => p.Size)
+                             .Include(p => p.Image)
+                             .First(p => p.ProductId == id);
+
+            return entry;
         }
     }
 }

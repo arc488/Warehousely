@@ -3,54 +3,57 @@
 @{
     List<OrderItemViewModel> orderItems = Model.OrderItems;
 }
-<form asp-controller="Order" asp-action="Add" method="post">
-
-    <div class="col-md-4 p-2 border">
-        <div class="form-group">
-            <label asp-for="Customer"></label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-user"></i>
-                </div>
-                <select asp-for="Customer" class="form-control">
-                    @foreach (var customer in Model.Customers)
-                    {
-                        <option value="@customer.CustomerId">@customer.Name</option>
-                    }
-                </select>
-            </div>
-            <div><span asp-validation-for="Customer" class="text-danger"></span></div>
-        </div>
 
 
-        <div class="form-group">
-            <label asp-for="DeliveryDate"></label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-truck"></i>
-                </div>
-                <input asp-for="DeliveryDate" class="form-control" type="text" id="datepicker" />
-            </div>
-            <div><span asp-validation-for="DeliveryDate" class="text-danger"></span></div>
-        </div>
+    <form asp-controller="Order" asp-action="Add" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
 
-        <label>Products</label>
-        <div class="form-group justify-content-center border p-2">
-            @for (int i = 0; i < orderItems.Count(); i++)
-            {
+        <div class="col-md-4 p-2 border">
+            <div class="form-group">
+                <label asp-for="Customer"></label>
                 <div class="input-group">
-                    <div class="row no-gutters">
-                        <div class="col-3"><input asp-for="OrderItems[i].ProductId" class="form-control text-center" readonly /></div>
-                        <div class="col-6"><input asp-for="OrderItems[i].Product.Name" class="form-control text-center" readonly /></div>
-                        <div class="col-3"><input onkeypress="return ValidNumeric()" asp-for="OrderItems[i].Quantity" class="form-control text-center" value="0" /></div>
+                    <div class="input-group-prepend">
+                        <i class="input-group-text fa fa-user"></i>
                     </div>
+                    <select asp-for="Customer" class="form-control">
+                        @foreach (var customer in Model.Customers)
+                        {
+                            <option value="@customer.CustomerId">@customer.Name</option>
+                        }
+                    </select>
                 </div>
-            }
-        </div>
+                <div><span asp-validation-for="Customer" class="text-danger"></span></div>
+            </div>
 
-        <div class="form-group text-center pt-2">
-            <input type="submit" value="Add Order" class="btn btn-primary" />
-        </div>
 
-    </div>
-</form>
+            <div class="form-group">
+                <label asp-for="DeliveryDate"></label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <i class="input-group-text fa fa-truck"></i>
+                    </div>
+                    <input asp-for="DeliveryDate" class="form-control" type="text" id="datepicker" />
+                </div>
+                <div><span asp-validation-for="DeliveryDate" class="text-danger"></span></div>
+            </div>
+
+            <label>Products</label>
+            <div class="form-group justify-content-center border p-2">
+                @for (int i = 0; i < orderItems.Count(); i++)
+                {
+                    <div class="input-group">
+                        <div class="row no-gutters">
+                            <div class="col-3"><input asp-for="OrderItems[i].ProductId" class="form-control text-center" readonly /></div>
+                            <div class="col-6"><input asp-for="OrderItems[i].Product.Name" class="form-control text-center" readonly /></div>
+                            <div class="col-3"><input onkeypress="return ValidNumeric()" asp-for="OrderItems[i].Quantity" class="form-control text-center" value="0" /></div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group text-center pt-2">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+
+        </div>
+    </form>

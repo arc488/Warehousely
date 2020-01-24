@@ -49,6 +49,12 @@ namespace Warehousely.DAL
                 ((BaseEntity)entityEntry.Entity).DateModified = DateTime.Today;
                 ((BaseEntity)entityEntry.Entity).ModifiedBy = userName;
 
+                if (entityEntry.State == EntityState.Modified)
+                {
+                    entityEntry.Property("CreatedBy").IsModified = false;
+                    entityEntry.Property("DateCreated").IsModified = false;
+                }
+
                 if (entityEntry.State == EntityState.Added)
                 {
                     ((BaseEntity)entityEntry.Entity).DateCreated = DateTime.Today;

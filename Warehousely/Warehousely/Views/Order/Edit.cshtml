@@ -43,7 +43,7 @@
             {
                 <div class="input-group">
                     <div class="row no-gutters">
-                        <input asp-for="@orderItems[i].OrderItemId" hidden />
+                        <input hidden readonly asp-for="OrderItems[i].OrderItemId" />
                         <div class="col-3"><input asp-for="OrderItems[i].ProductId" class="form-control text-center" readonly /></div>
                         <div class="col-6"><input asp-for="OrderItems[i].Product.Name" class="form-control text-center" readonly /></div>
                         <div class="col-3"><input onkeypress="return ValidNumeric()" asp-for="OrderItems[i].Quantity" class="form-control text-center" /></div>

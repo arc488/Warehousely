@@ -7,11 +7,11 @@ using Warehousely.Models;
 
 namespace Warehousely.DAL
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository1
     {
         private readonly AppDbContext _appDbContext;
 
-        public CustomerRepository(AppDbContext appDbContext)
+        public CustomerRepository1(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

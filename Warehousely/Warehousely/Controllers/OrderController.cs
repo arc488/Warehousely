@@ -39,7 +39,7 @@ namespace Warehousely.Controllers
         {
             var viewModel = new OrderListViewModel
             {
-                Orders = _orderRepository.AllOrders
+                Orders = _orderRepository.GetAll()
             };
 
             return View(viewModel);
@@ -78,7 +78,7 @@ namespace Warehousely.Controllers
             order.DeliveryDate = viewModel.DeliveryDate;
             order.Customer = _customerRepository.GetById(viewModel.Customer);
 
-            _orderRepository.Create(order);
+            _orderRepository.Add(order);
 
             return RedirectToAction("List");
         }
@@ -108,10 +108,10 @@ namespace Warehousely.Controllers
         {
             var order = _mapper.Map<Order>(viewModel);
 
-            foreach (var item in viewModel.OrderItems)
+            //if this isn't done EF creates new products on save
+            foreach (var item in order.OrderItems)
             {
-                var orderItem = _mapper.Map<OrderItem>(item);
-                _orderItemRepository.Update(orderItem);
+                item.Product = _productRepository.GetById(item.ProductId);
             }
 
             _orderRepository.Update(order);

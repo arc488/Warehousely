@@ -3,44 +3,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.DAL.Repositories;
 using Warehousely.Models;
 
 namespace Warehousely.DAL
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository : Repository<Order>, IOrderRepository
     {
-        private readonly AppDbContext _appDbContext;
-
-        public OrderRepository(AppDbContext appDbContext)
+        public OrderRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            _appDbContext = appDbContext;
         }
 
-        public void Create(Order order)
+        public override IEnumerable<Order> GetAll()
         {
-            _appDbContext.Orders.Add(order);
-            _appDbContext.SaveChanges();
+            var entries = _appDbContext.Orders
+                    .Include(order => order.OrderItems)
+                    .Include(order => order.Customer)
+                    .ToList();
+           
+            return entries;
+        }
+        
+        public override Order GetById(int id)
+        {
+            Order entry = _appDbContext.Orders
+                           .Include(o => o.OrderItems)
+                             .ThenInclude(i => i.Product)
+                           .Include(o => o.Customer)
+                           .First(o => o.OrderId == id);
+            return entry;
+
         }
 
-        public IEnumerable<Order> AllOrders => _appDbContext.Orders
-                                               .Include(order => order.OrderItems)
-                                               .Include(order => order.Customer);
-
-
-        public Order GetById(int id)
-        {
-            var order = _appDbContext.Orders
-                        .Include(order => order.OrderItems)
-                            .ThenInclude(item => item.Product)
-                        .Include(order => order.Customer)
-                        .FirstOrDefault<Order>(order => order.OrderId == id);
-            return order;
-        }
-
-        public void Update(Order order)
-        {
-            _appDbContext.Entry(order).State = EntityState.Modified;
-            _appDbContext.SaveChanges();
-        }
     }
 }
