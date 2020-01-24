@@ -57,8 +57,8 @@ namespace Warehousely.Controllers
             var customer = _mapper.Map<Customer>(model);
             var address = _mapper.Map<Address>(model);
 
-            var addressEntry = _addressRepository.CreateAddress(address);
-            if (addressEntry != null) customer.Address = addressEntry;
+            _addressRepository.Add(address);
+            if (address != null) customer.Address = address;
 
             _customerRepository.Add(customer);
 
@@ -100,7 +100,7 @@ namespace Warehousely.Controllers
             var address = _mapper.Map<Address>(model);
 
             _customerRepository.Update(customer);
-            _addressRepository.UpdateAddress(address);
+            _addressRepository.Update(address);
 
             return RedirectToAction("List");
         }

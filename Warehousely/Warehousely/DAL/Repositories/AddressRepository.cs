@@ -8,34 +8,10 @@ using Warehousely.Models;
 
 namespace Warehousely.DAL.Repositories
 {
-    public class AddressRepository : IAddressRepository
+    public class AddressRepository : Repository<Address>, IAddressRepository
     {
-        private readonly AppDbContext _appDbContext;
-
-        public AddressRepository(AppDbContext appDbContext)
+        public AddressRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            _appDbContext = appDbContext;
-        }
-
-        public IEnumerable<Address> AllAddresses => _appDbContext.Addresses;
-
-        public Address CreateAddress(Address address)
-        {
-            _appDbContext.Addresses.Add(address);
-            _appDbContext.SaveChanges();
-            return address;
-        }
-
-        public Address GetById(int id)
-        {
-            var address = _appDbContext.Addresses.FirstOrDefault<Address>(a => a.AddressId == id);
-            return address;
-        }
-
-        public void UpdateAddress(Address address)
-        {
-            _appDbContext.Entry(address).State = EntityState.Modified;
-            _appDbContext.SaveChanges();
         }
     }
 }

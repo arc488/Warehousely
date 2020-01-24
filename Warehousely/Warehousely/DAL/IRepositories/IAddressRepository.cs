@@ -6,11 +6,8 @@ using Warehousely.Models;
 
 namespace Warehousely.DAL.IRepositories
 {
-    public interface IAddressRepository
+    public interface IAddressRepository : IRepository<Address>
     {
-        IEnumerable<Address> AllAddresses { get; }
-        Address GetById(int id);
-        Address CreateAddress(Address address);
-        void UpdateAddress(Address address);
+
     }
 }
