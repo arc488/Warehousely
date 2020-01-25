@@ -41,7 +41,6 @@ namespace Warehousely.Controllers
             {
                 Orders = _orderRepository.GetAll()
             };
-
             return View(viewModel);
         }
 
@@ -71,8 +70,8 @@ namespace Warehousely.Controllers
                     Product = _productRepository.GetById(item.ProductId),
                     Quantity = item.Quantity
                 };
-                var createdOrder = _orderItemRepository.Create(orderItem);
-                order.OrderItems.Add(createdOrder);
+                _orderItemRepository.Add(orderItem);
+                order.OrderItems.Add(orderItem);
             }
 
             order.DeliveryDate = viewModel.DeliveryDate;
@@ -86,19 +85,14 @@ namespace Warehousely.Controllers
         public IActionResult Detail(int id)
         {
             var order = _orderRepository.GetById(id);
-
             var viewModel = _mapper.Map<OrderDetailViewModel>(order);
-            
-
             return View(viewModel);
         }
 
         public IActionResult Edit(int id)
         {
             var order = _orderRepository.GetById(id);
-
             var viewModel = _mapper.Map<OrderDetailViewModel>(order);
-
             return View(viewModel);
         }
 
@@ -107,13 +101,11 @@ namespace Warehousely.Controllers
         public IActionResult Edit(OrderDetailViewModel viewModel)
         {
             var order = _mapper.Map<Order>(viewModel);
-
             //if this isn't done EF creates new products on save
             foreach (var item in order.OrderItems)
             {
                 item.Product = _productRepository.GetById(item.ProductId);
             }
-
             _orderRepository.Update(order);
 
             return RedirectToAction("Detail", new { id = viewModel.OrderId });

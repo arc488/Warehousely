@@ -6,12 +6,8 @@ using Warehousely.Models;
 
 namespace Warehousely.DAL.IRepositories
 {
-    public interface IOrderItemRepository
+    public interface IOrderItemRepository : IRepository<OrderItem>
     {
-        OrderItem Create(OrderItem orderItem);
-        OrderItem GetById(int id);
-        IEnumerable<OrderItem> AllOrderItems { get; }
-        void Update(OrderItem orderItem);
-        void Delete(OrderItem orderItem);
+
     }
 }
