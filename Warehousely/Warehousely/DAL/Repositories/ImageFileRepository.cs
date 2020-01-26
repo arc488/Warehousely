@@ -4,53 +4,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.DAL.IRepositories;
+using Warehousely.DAL.Repositories;
 using Warehousely.Models;
 
 namespace Warehousely.DAL
 {
-    public class ImageFileRepository : IImageFileRepository
+    public class ImageFileRepository : Repository<ImageFile>, IImageFileRepository
     {
-        private readonly AppDbContext _appDbContext;
-
-        public ImageFileRepository(AppDbContext appDbContext)
+        public ImageFileRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            _appDbContext = appDbContext;
         }
 
-        public int CreateImage(IFormFile file)
-        {
-            var ImageFile = new ImageFile
-            {
-                ContentDisposition = file.ContentDisposition,
-                ContentType = file.ContentType,
-                FileName = file.FileName,
-                Length = file.Length,
-                Name = file.FileName
-            };
-
-            using (var ms = new MemoryStream())
-            {
-                file.CopyTo(ms);
-                var imageData = ms.ToArray();
-                ImageFile.Content = imageData;
-            }
-
-            _appDbContext.ImageFiles.Add(ImageFile);
-            _appDbContext.SaveChanges();
-
-            return ImageFile.ImageFileId;
-        }
-
-        public void DeleteImageFile(ImageFile imageFile)
-        {
-            _appDbContext.ImageFiles.Remove(imageFile);
-            _appDbContext.SaveChanges();
-
-        }
-
-        public ImageFile GetById(int id)
-        {
-            return _appDbContext.ImageFiles.FirstOrDefault<ImageFile>(i => i.ImageFileId == id);
-        }
     }
 }

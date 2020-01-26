@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using Warehousely.Models;
 
 namespace Warehousely.ViewModels.CustomerViewModels
 {
-    public class CustumerViewModel
+    public class CustomerViewModel
     {
         public bool IsReadonly { get; set; }
 
@@ -34,8 +35,8 @@ namespace Warehousely.ViewModels.CustomerViewModels
         [Required, StringLength(20, MinimumLength = 2, ErrorMessage = "City name must be between 2 and 20 characters long")]
         public string City { get; set; }
 
-        [Required, StringLength(10, MinimumLength = 2)]
-        public string State { get; set; }
+        [Required]
+        public State State { get; set; }
 
         [Required, StringLength(8, MinimumLength = 5)]
         public string Zip { get; set; }

@@ -10,12 +10,12 @@ namespace Warehousely.Controllers.Helpers
 {
     public class CustomerHelpers
     {
-        public CustumerViewModel GenerateCustomerViewModel(IMapper mapper,
+        public CustomerViewModel GenerateCustomerViewModel(IMapper mapper,
                                                            ICustomerRepository customerRepository,
                                                            int id)
         {
             var customer = customerRepository.GetById(id);
-            var viewModel = mapper.Map<CustumerViewModel>(customer);
+            var viewModel = mapper.Map<CustomerViewModel>(customer);
             mapper.Map(customer.Address, viewModel);
 
             return viewModel;

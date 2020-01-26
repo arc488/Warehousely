@@ -14,17 +14,5 @@ namespace Warehousely.DAL.Repositories
         {
         }
 
-        public void AddRange(IEnumerable<OrderItem> entities)
-        {
-            _appDbContext.AddRange(entities);
-            _appDbContext.SaveChanges();
-        }
-
-        //OrderItem IOrderItemRepository.Add(OrderItem entity)
-        //{
-        //    _appDbContext.Add(entity);
-        //    _appDbContext.SaveChanges();
-        //    return entity;
-        //}
     }
 }

@@ -47,9 +47,6 @@ namespace Warehousely.Controllers
         public IActionResult Detail(int id)
         {
             var product = _productRepository.GetById(id);
-
-            if (product == null) return NotFound();
-
             var viewModel = _mapper.Map<ProductDetailViewModel>(product);
 
             return View(viewModel);
@@ -58,9 +55,9 @@ namespace Warehousely.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteProduct(int id)
         {
-            var product = _productRepository.GetById(id);
-            if (product.Image != null) _imageFileRepository.DeleteImageFile(product.Image);
-            if (product != null) _productRepository.Delete(product);
+            //var product = _productRepository.GetById(id);
+            //if (product.Image != null) _imageFileRepository.DeleteImageFile(product.Image);
+            //if (product != null) _productRepository.Delete(product);
             return RedirectToAction("List");
         }
 
@@ -68,10 +65,8 @@ namespace Warehousely.Controllers
         {
             var product = _productRepository.GetById(id);
 
-            var viewModel = new ProductEditViewModel();
-
-            viewModel = _mapper.Map<ProductEditViewModel>(product);
-            viewModel.AllSizes = _sizeRepository.AllSizes;
+            var viewModel = _mapper.Map<Product, ProductEditViewModel>(product);
+            viewModel.AllSizes = _sizeRepository.GetAll();
 
             return View(viewModel);
         }
@@ -80,53 +75,67 @@ namespace Warehousely.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ProductEditViewModel model, IFormFile file)
         {
-            if (!ModelState.IsValid) return RedirectToAction("Edit", routeValues: model.ProductId);
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Edit", new { id = model.ProductId });
+            }
 
-            var product = new Product();
-
-            product = _mapper.Map<Product>(model);
+            Product product = _mapper.Map<Product>(model);
             product.Size = _sizeRepository.GetById(model.SizeId);
 
             if (file != null)
             {
-                var imageFileId = _imageFileRepository.CreateImage(file);
-                product.Image = _imageFileRepository.GetById(imageFileId);
+                ImageFile imageFile = AddImage(file);
+                product.Image = imageFile;
             }
 
             _productRepository.Update(product);
+
             return RedirectToAction("Edit", product.ProductId);
         }
 
+
+
         public IActionResult Add()
         {
-            var model = new ProductAddViewModel();
-            model.AllSizes = _sizeRepository.AllSizes;
-            return View(model);
+            var viewModel = new ProductAddViewModel { AllSizes = _sizeRepository.GetAll() };
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(ProductAddViewModel model, IFormFile file)
+        public IActionResult Add(ProductAddViewModel viewModel, IFormFile file)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            var product = _mapper.Map<Product>(model);
+            Product product = _mapper.Map<Product>(viewModel);
+            product.Size = _sizeRepository.GetById(viewModel.Size);
 
             if (file != null)
             {
-               var imageFileId = _imageFileRepository.CreateImage(file);
-               product.Image = _imageFileRepository.GetById(imageFileId);
-            };
-
-            product.Size = _sizeRepository.GetById(model.Size);
-
+                ImageFile imageFile = AddImage(file);
+                product.Image = imageFile;
+            }
             _productRepository.Add(product);
-            ViewBag.Message = "Product Added Successfully";
+
             return RedirectToAction("List");
         }
 
+        private ImageFile AddImage(IFormFile file)
+        {
+            var imageFile = _mapper.Map<IFormFile, ImageFile>(file);
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                imageFile.Content = ms.ToArray();
+            }
+
+            _imageFileRepository.Add(imageFile);
+
+            return imageFile;
+        }
     }
 }

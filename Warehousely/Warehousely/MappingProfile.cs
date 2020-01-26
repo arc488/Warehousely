@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,11 @@ namespace Warehousely
             CreateMap<ProductEditViewModel, Product>().ForMember(p => p.Size, cfg => cfg.Ignore())
                                                       .ForMember(p => p.Image, cfg => cfg.Ignore());
 
-            CreateMap<CustumerViewModel, Customer>();
-            CreateMap<Customer, CustumerViewModel>().IncludeMembers(c => c.Address);
+            CreateMap<CustomerViewModel, Customer>();
+            CreateMap<Customer, CustomerViewModel>().IncludeMembers(c => c.Address);
 
-            CreateMap<CustumerViewModel, Address>();
-            CreateMap<Address, CustumerViewModel>();
+            CreateMap<CustomerViewModel, Address>();
+            CreateMap<Address, CustomerViewModel>();
 
             CreateMap<Product, OrderItemViewModel>();
             CreateMap<OrderItemViewModel, Product>();
@@ -54,6 +55,9 @@ namespace Warehousely
                 .ForMember(o => o.Customer, cfg => cfg.Ignore());
             CreateMap<Order, OrderAddViewModel>()
                 .ForMember(o => o.Customer, cfg => cfg.Ignore());
+
+            //ImageFile
+            CreateMap<IFormFile, ImageFile>().ReverseMap();
         }
     }
 }

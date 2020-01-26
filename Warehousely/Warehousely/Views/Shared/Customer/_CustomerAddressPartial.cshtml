@@ -1,4 +1,4 @@
-﻿@model CustumerViewModel
+﻿@model CustomerViewModel
 
 <input readonly hidden asp-for="AddressId" class="form-control" />
 
@@ -42,7 +42,7 @@
             <div class="input-group-prepend">
                 <i class="input-group-text fa fa-address-book"></i>
             </div>
-            <input asp-for="State" class="form-control" placeholder="State" />
+            <select asp-for="State" class="form-control" asp-items="@Html.GetEnumSelectList<Enums.State>()"></select>
         </div>
         <div><span asp-validation-for="State" class="text-danger"></span></div>
     </div>

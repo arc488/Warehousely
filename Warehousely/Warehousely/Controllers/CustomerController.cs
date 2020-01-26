@@ -44,13 +44,13 @@ namespace Warehousely.Controllers
 
         public IActionResult Add()
         {
-            var model = new CustumerViewModel();
+            var model = new CustomerViewModel();
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(CustumerViewModel model)
+        public IActionResult Add(CustomerViewModel model)
         {
             if (!ModelState.IsValid) return View();
 
@@ -69,7 +69,7 @@ namespace Warehousely.Controllers
         {
             var customer = _customerRepository.GetById(id);
 
-            var viewModel = _mapper.Map<CustumerViewModel>(customer);
+            var viewModel = _mapper.Map<CustomerViewModel>(customer);
             viewModel.IsReadonly = true;
             viewModel.Orders = _orderRepository.GetAll()
                               .Where(order => order.Customer.CustomerId == id)
@@ -85,15 +85,15 @@ namespace Warehousely.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(CustumerViewModel model)
+        public IActionResult Edit(CustomerViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(GenerateModel(model.CustomerId));
+                return View(GenerateModel(viewModel.CustomerId));
             }
 
-            var customer = _mapper.Map<Customer>(model);
-            var address = _mapper.Map<Address>(model);
+            var customer = _mapper.Map<Customer>(viewModel);
+            var address = _mapper.Map<Address>(viewModel);
 
             _customerRepository.Update(customer);
             _addressRepository.Update(address);
@@ -101,7 +101,7 @@ namespace Warehousely.Controllers
             return RedirectToAction("List");
         }
 
-        public CustumerViewModel GenerateModel(int id) {
+        public CustomerViewModel GenerateModel(int id) {
             var viewModel = new CustomerHelpers()
                             .GenerateCustomerViewModel
                             (_mapper, _customerRepository, id);

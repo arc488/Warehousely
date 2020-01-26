@@ -2,24 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehousely.DAL.IRepositories;
+using Warehousely.DAL.Repositories;
 using Warehousely.Models;
 
 namespace Warehousely.DAL
 {
-    public class SizeRepository : ISizeRepository
+    public class SizeRepository : Repository<Size>, ISizeRepository
     {
-        private readonly AppDbContext _appDbContext;
-
-        public SizeRepository(AppDbContext appDbContext)
+        public SizeRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            _appDbContext = appDbContext;
-        }
-        public IEnumerable<Size> AllSizes => _appDbContext.Sizes;
-
-        public Size GetById(int id)
-        {
-            var size = _appDbContext.Sizes.FirstOrDefault<Size>(s => s.SizeId == id);
-            return size;
         }
     }
 }
