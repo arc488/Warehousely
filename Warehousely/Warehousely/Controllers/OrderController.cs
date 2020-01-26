@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehousely.Controllers.Helpers;
@@ -59,23 +60,11 @@ namespace Warehousely.Controllers
                return View(GenerateModel());
             };
 
-            var order = new Order { OrderItems = new List<OrderItem>() };
-            var orderedProdcuts = viewModel.OrderItems;
-
-            foreach (var item in orderedProdcuts)
-            {
-                var orderItem = new OrderItem
-                {
-                    ProductId = item.ProductId,
-                    Product = _productRepository.GetById(item.ProductId),
-                    Quantity = item.Quantity
-                };
-                _orderItemRepository.Add(orderItem);
-                order.OrderItems.Add(orderItem);
-            }
-
-            order.DeliveryDate = viewModel.DeliveryDate;
+            var order = _mapper.Map<OrderAddViewModel, Order>(viewModel);
             order.Customer = _customerRepository.GetById(viewModel.Customer);
+
+            order.OrderItems = _mapper.Map<List<OrderItemViewModel>, List<OrderItem>>(viewModel.OrderItems);
+            order.OrderItems.ForEach(o => o.Product = _productRepository.GetById(o.ProductId));
 
             _orderRepository.Add(order);
 
@@ -85,7 +74,7 @@ namespace Warehousely.Controllers
         public IActionResult Detail(int id)
         {
             var order = _orderRepository.GetById(id);
-            var viewModel = _mapper.Map<OrderDetailViewModel>(order);
+            var viewModel = _mapper.Map<Order, OrderDetailViewModel>(order);
             return View(viewModel);
         }
 
@@ -102,10 +91,7 @@ namespace Warehousely.Controllers
         {
             var order = _mapper.Map<Order>(viewModel);
             //if this isn't done EF creates new products on save
-            foreach (var item in order.OrderItems)
-            {
-                item.Product = _productRepository.GetById(item.ProductId);
-            }
+            order.OrderItems.ForEach(o => o.Product = _productRepository.GetById(o.ProductId));
             _orderRepository.Update(order);
 
             return RedirectToAction("Detail", new { id = viewModel.OrderId });

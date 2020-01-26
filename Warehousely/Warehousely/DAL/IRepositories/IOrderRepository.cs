@@ -9,5 +9,6 @@ namespace Warehousely.DAL
 {
     public interface IOrderRepository : IRepository<Order>
     {
+
     }
 }

@@ -36,11 +36,24 @@ namespace Warehousely
             CreateMap<Product, OrderItemViewModel>();
             CreateMap<OrderItemViewModel, Product>();
 
+            CreateMap<OrderDetailViewModel, Order>();
+            CreateMap<Order, OrderDetailViewModel>();
+
+
+            // Order
+
             CreateMap<OrderItemViewModel, OrderItem>();
             CreateMap<OrderItem, OrderItemViewModel>();
 
+            CreateMap<Product, OrderItem>().ReverseMap();
+
             CreateMap<OrderDetailViewModel, Order>();
             CreateMap<Order, OrderDetailViewModel>();
+
+            CreateMap<OrderAddViewModel, Order>()
+                .ForMember(o => o.Customer, cfg => cfg.Ignore());
+            CreateMap<Order, OrderAddViewModel>()
+                .ForMember(o => o.Customer, cfg => cfg.Ignore());
         }
     }
 }

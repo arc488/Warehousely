@@ -8,6 +8,7 @@ namespace Warehousely.DAL.IRepositories
 {
     public interface IOrderItemRepository : IRepository<OrderItem>
     {
-
+        void AddRange(IEnumerable<OrderItem> entities);
+        //OrderItem Add(OrderItem entity);
     }
 }

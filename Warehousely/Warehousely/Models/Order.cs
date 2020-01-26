@@ -13,7 +13,6 @@ namespace Warehousely.Models
     public class Order : BaseEntity
     {
         public int OrderId { get; set; }
-        [Required]
         public Customer Customer { get; set; }
         public List<OrderItem> OrderItems { get; set; }
         [DisplayName("Delivery Date")]
