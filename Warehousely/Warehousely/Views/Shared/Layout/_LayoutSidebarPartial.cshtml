@@ -1,0 +1,53 @@
+﻿<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>Warehousely</h3>
+        <strong>W</strong>
+    </div>
+    <ul class="list-unstyled components">
+        <li class="active">
+            <partial name="_LoginPartial" />
+            <a asp-controller="Home" asp-action="Index" data-toggle="collapse" aria-expanded="false">
+                <i class="fa fa-home"></i>
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="#customersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa fa-users"></i>
+                Customers
+            </a>
+            <ul class="collapse list-unstyled" id="customersSubmenu">
+                <li>
+                    <a asp-controller="Customer" asp-action="Add">Add</a>
+                </li>
+                <li>
+                    <a asp-controller="Customer" asp-action="List">List</a>
+                </li>
+            </ul>
+            <a href="#ordersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa fa-copy"></i>
+                Orders
+            </a>
+            <ul class="collapse list-unstyled" id="ordersSubmenu">
+                <li>
+                    <a asp-controller="Order" asp-action="Add">Add</a>
+                </li>
+                <li>
+                    <a asp-controller="Order" asp-action="List">List</a>
+                </li>
+            </ul>
+            <a href="#productsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa fa-glass"></i>
+                Products
+            </a>
+            <ul class="collapse list-unstyled" id="productsSubmenu">
+                <li>
+                    <a asp-controller="Product" asp-action="Add">Add</a>
+                </li>
+                <li>
+                    <a asp-controller="Product" asp-action="List">List</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
