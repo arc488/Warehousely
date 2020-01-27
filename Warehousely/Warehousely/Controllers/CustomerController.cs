@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Warehousely.Controllers.Helpers;
 using Warehousely.DAL;
 using Warehousely.DAL.IRepositories;
+using Warehousely.Helpers;
 using Warehousely.Models;
 using Warehousely.ViewModels.CustomerViewModels;
 
@@ -56,6 +57,7 @@ namespace Warehousely.Controllers
 
             var customer = _mapper.Map<Customer>(model);
             var address = _mapper.Map<Address>(model);
+            address = new AddressHelpers().AddCoordinates(address);
 
             _addressRepository.Add(address);
             if (address != null) customer.Address = address;
@@ -94,6 +96,7 @@ namespace Warehousely.Controllers
 
             var customer = _mapper.Map<Customer>(viewModel);
             var address = _mapper.Map<Address>(viewModel);
+            address = new AddressHelpers().AddCoordinates(address);
 
             _customerRepository.Update(customer);
             _addressRepository.Update(address);

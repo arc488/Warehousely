@@ -1,0 +1,28 @@
+﻿@model IEnumerable<MapItemViewModel>
+<!--The div element for the map -->
+@{
+
+
+}
+<div id="map" style="height: 300px; width: 300px"></div>
+<script>
+    function initMap() {
+        var usaCoords = { lat: 37.0902, lng: -95.7129 };
+
+        var googleMap = new google.maps.Map(
+            document.getElementById('map'), { zoom: 6, center: usaCoords });
+
+        var mapItems = @Html.Raw(Json.Serialize(Model));
+
+        for (var i in mapItems) {
+            var markerPosition = { lat: mapItems[i].lat, lng: mapItems[i].lng };
+            var marker = new google.maps.Marker({
+                position: markerPosition,
+                map: googleMap
+            });
+        };
+
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMzHnGdrfFE322akVx14py4UGRZs8IuUo&callback=initMap">
+</script>

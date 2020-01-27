@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Warehousely.Models;
 using Warehousely.ViewModels;
 using Warehousely.ViewModels.CustomerViewModels;
+using Warehousely.ViewModels.MapViewModels;
 using Warehousely.ViewModels.OrderViewModels;
 
 namespace Warehousely
@@ -58,6 +59,10 @@ namespace Warehousely
 
             //ImageFile
             CreateMap<IFormFile, ImageFile>().ReverseMap();
+
+            //Map
+            CreateMap<Customer, MapItemViewModel>().IncludeMembers(c => c.Address).ReverseMap();
+            CreateMap<Address, MapItemViewModel>().ReverseMap();
         }
     }
 }

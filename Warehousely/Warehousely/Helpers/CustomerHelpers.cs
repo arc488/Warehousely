@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehousely.DAL;
+using Warehousely.Models;
 using Warehousely.ViewModels.CustomerViewModels;
 
 namespace Warehousely.Controllers.Helpers
@@ -20,5 +21,7 @@ namespace Warehousely.Controllers.Helpers
 
             return viewModel;
         }
+
+
     }
 }

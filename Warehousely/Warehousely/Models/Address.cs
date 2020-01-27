@@ -16,6 +16,8 @@ namespace Warehousely.Models
         public State State { get; set; }
         public int Zip { get; set; }
         public double Lat { get; set; }
-        public double Long { get; set; }
+        public double Lng { get; set; }
+
+        
     }
 }
