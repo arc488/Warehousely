@@ -36,5 +36,7 @@ namespace Warehousely.ViewModels.MapViewModels
         public double Lng { get; set; }
 
         public IEnumerable<Order> Orders { get; set; }
+
+        public string MapsContent { get; set; }
     }
 }
