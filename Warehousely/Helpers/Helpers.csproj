@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="jQuery.Validation" Version="1.19.1" />
+  </ItemGroup>
+
 </Project>

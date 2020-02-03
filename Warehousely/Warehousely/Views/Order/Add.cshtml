@@ -1,9 +1,5 @@
 ﻿@model OrderAddViewModel
 
-@{
-//List<OrderItemViewModel> orderItems = Model.OrderItems;
-}
-
 
     <form asp-controller="Order" asp-action="Add" method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -45,7 +41,8 @@
                         <div class="row no-gutters">
                             <div class="col-3"><input asp-for="OrderItems[i].ProductId" class="form-control text-center" readonly /></div>
                             <div class="col-6"><input asp-for="OrderItems[i].Product.Name" class="form-control text-center" readonly /></div>
-                            <div class="col-3"><input onkeypress="return ValidNumeric()" asp-for="OrderItems[i].Quantity" class="form-control text-center" value="0" /></div>
+                            <div class="col-3"><input onkeypress="return validateNumericInput()" asp-for="OrderItems[i].Quantity" class="form-control text-center" value="0" /></div>
+                            <div><span asp-validation-for="OrderItems[i].Quantity" class="text-danger"></span></div>
                         </div>
                     </div>
                 }

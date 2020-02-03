@@ -1,14 +1,8 @@
 ﻿@model CustomerViewModel
 
-<script>
-    $(function () {
-        $('input').attr("readonly", true);
-        $('select').attr('disabled', 'disabled');
-    });
-</script>
 
 <div class="container">
-    <form>
+    <form id="detail">
         <div class="row">
             <partial name="Customer/_CustomerDetailPartial" />
             <partial name="Customer/_CustomerAddressPartial" />

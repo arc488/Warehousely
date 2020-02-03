@@ -1,4 +1,4 @@
 ﻿$(function () {
-    $('input').attr("readonly", true);
-    $('select').attr('disabled', 'disabled');
+    $('#detail :input').prop("readonly", true);
+    $('#detail select').prop('disabled', 'disabled');
 });
